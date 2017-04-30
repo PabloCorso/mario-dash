@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	<!-- NMML reference: https://gist.github.com/1763850 -->
-	
+
 	<!-- metadata, make sure 'package' is at least 3 segments (ie. com.mycompany.myproject) -->
-	<meta title="chivitoBoy" package="chivitoBoy" version="1.0.0" company="Joaquin" />
-	
+	<meta title="MarioDash" package="MarioDash" version="1.0.0" company="" />
+
 	<!-- output -->
-	<app main="Main" file="chivitoBoy" path="bin" />
-	
+	<app main="Main" file="MarioDash" path="bin" />
+
 	<window background="#000000" fps="60" />
 	<window width="800" height="600" unless="mobile" />
 	<window orientation="landscape" vsync="false" antialiasing="0" if="cpp" />
-	<app swf-version="11.8" if="flash"/>
+	<app swf-version="11.8" if="flash" />
 	<!-- classpath, haxe libs -->
-	<haxedef name="FLX_RECORD" />`
+	<haxedef name="FLX_RECORD" />
 	<source path="src" />
 	<haxelib name="openfl" />
-	<haxelib name="flixel"/>
+	<haxelib name="flixel" />
 	<haxelib name="actuate" />
-	
+
 	<!-- assets -->
 	<icon path="assets/openfl.svg" />
 	<assets path="assets/img" rename="img" />
 	<assets path="assets" rename="assets" />
-	
+
 	<!-- optimize output
-	<haxeflag name="-dce full" /> -->
-	
+		 <haxeflag name="-dce full" /> -->
+
 </project>
