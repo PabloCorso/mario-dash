@@ -3,25 +3,26 @@
 	<!-- NMML reference: https://gist.github.com/1763850 -->
 	
 	<!-- metadata, make sure 'package' is at least 3 segments (ie. com.mycompany.myproject) -->
-	<meta title="MarioDash" package="Flixel" version="1.0.0" company="" />
+	<meta title="chivitoBoy" package="chivitoBoy" version="1.0.0" company="Joaquin" />
 	
 	<!-- output -->
-	<app main="Main" file="Flixel" path="bin" />
-	<app swf-version="11.8" if="flash"/>
+	<app main="Main" file="chivitoBoy" path="bin" />
 	
 	<window background="#000000" fps="60" />
-	<window width="800" height="480" unless="mobile" />
+	<window width="800" height="600" unless="mobile" />
 	<window orientation="landscape" vsync="false" antialiasing="0" if="cpp" />
-	
+	<app swf-version="11.8" if="flash"/>
 	<!-- classpath, haxe libs -->
+	<haxedef name="FLX_RECORD" />`
 	<source path="src" />
 	<haxelib name="openfl" />
-	<haxelib name="actuate" />
 	<haxelib name="flixel"/>
+	<haxelib name="actuate" />
 	
 	<!-- assets -->
 	<icon path="assets/openfl.svg" />
 	<assets path="assets/img" rename="img" />
+	<assets path="assets" rename="assets" />
 	
 	<!-- optimize output
 	<haxeflag name="-dce full" /> -->
