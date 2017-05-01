@@ -23,12 +23,11 @@ class Player extends FlxSprite
 		animation.add("fall", [0]);
 		animation.add("wallHang",[11]);
 		animation.play("stand");
-
-		drag.x = 500;
+		
 		offset.y = 20;
 		width = 40;
 		height = 41;
-		maxVelocity.x = 400;
+		maxVelocity.x = 200;
 
 		acceleration.y = 1000;
 	}
@@ -38,33 +37,12 @@ class Player extends FlxSprite
 	static private inline var MIN_DISTANCE_SPAWN_DUST:Float = 15;
 	override public function update(elapsed:Float)
 	{
-		acceleration.x = 0;
-		if (FlxG.keys.pressed.LEFT)
-		{
-			acceleration.x = -ACCELERATION;
-		}
-		if (FlxG.keys.pressed.RIGHT)
-		{
-			acceleration.x = ACCELERATION;
-		}
+		acceleration.x = ACCELERATION;
 		if (FlxG.keys.justPressed.SPACE )
 		{
 			if (isTouching(FlxObject.FLOOR))
 			{
-				velocity.y = -500;
-			}
-			else
-			{
-				if (isTouching(FlxObject.LEFT))
-				{
-					velocity.y = -500;
-					velocity.x = 500;
-				}
-				if (isTouching(FlxObject.RIGHT))
-				{
-					velocity.y = -500;
-					velocity.x = -500;
-				}
+				velocity.y = -400;
 			}
 		}
 		if (needToSpawnDust())
@@ -79,7 +57,6 @@ class Player extends FlxSprite
 			{
 				dust.reset(x+width, y+height);
 			}
-
 		}
 
 		updateAnimation(elapsed);
@@ -129,7 +106,7 @@ class Player extends FlxSprite
 				animation.play("stand");
 			}
 		}
-		
+
 		super.updateAnimation(elapsed);
 	}
 }

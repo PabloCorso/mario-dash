@@ -3,7 +3,7 @@ import flixel.FlxGame;
 import openfl.display.Sprite;
 import openfl.events.Event;
 
-class Main extends  Sprite
+class Main extends Sprite
 {
 
 	public function new()
@@ -16,7 +16,7 @@ class Main extends  Sprite
 	{
 		removeEventListener(Event.ADDED_TO_STAGE, init);
 
-		addChild(new FlxGame(800,600, GameState));
+		addChild(new FlxGame(800,400, GameState));
 	}
 
 }
