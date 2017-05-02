@@ -38,7 +38,7 @@ class Player extends FlxSprite
 	override public function update(elapsed:Float)
 	{
 		acceleration.x = ACCELERATION;
-		if (FlxG.keys.justPressed.SPACE )
+		if (FlxG.keys.pressed.SPACE )
 		{
 			if (isTouching(FlxObject.FLOOR))
 			{

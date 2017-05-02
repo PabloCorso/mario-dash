@@ -22,7 +22,12 @@ class GameState extends FlxState
 	override public function create():Void
 	{
 		createMap();
-		addPlayer();
+		startNewGame();
+	}
+
+	function startNewGame()
+	{
+		createPlayer();
 		setCameraBehaviour();
 	}
 
@@ -35,10 +40,19 @@ class GameState extends FlxState
 		add(map);
 	}
 
-	function addPlayer()
+	function createPlayer()
 	{
+		clearCurrentGame();
 		player = new Player(this,100, 100);
 		add(player);
+	}
+
+	function clearCurrentGame()
+	{
+		if (player != null)
+		{
+			remove(player);
+		}
 	}
 
 	function setCameraBehaviour()
@@ -50,6 +64,11 @@ class GameState extends FlxState
 
 	override public function update(elapsed:Float):Void
 	{
+		if (FlxG.keys.justPressed.ESCAPE)
+		{
+			startNewGame();
+		}
+
 		super.update(elapsed);
 		FlxG.collide(map, player);
 	}
