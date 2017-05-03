@@ -16,25 +16,24 @@ class GameState extends FlxState
 
 	public function new()
 	{
+		map = new FlxTilemap();
 		super();
 	}
 
 	override public function create():Void
 	{
-		createMap();
 		startNewGame();
 	}
 
 	function startNewGame()
 	{
+		createMap(AssetPaths.mapCSV_map2_tiles__csv);
 		createPlayer();
 		setCameraBehaviour();
 	}
 
-	function createMap()
+	function createMap(mapId:String)
 	{
-		map = new FlxTilemap();
-		var mapId:String = AssetPaths.mapCSV_map2_tiles__csv;
 		var mapData:String = Assets.getText(mapId);
 		map.loadMapFromCSV(mapData, AssetPaths.tiles__png, 32, 32, null, 0, 1, 1);
 		add(map);
@@ -43,7 +42,7 @@ class GameState extends FlxState
 	function createPlayer()
 	{
 		clearCurrentGame();
-		player = new Player(this, 100, 100);
+		player = new Player(100, 100);
 		add(player);
 	}
 
