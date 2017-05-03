@@ -16,7 +16,6 @@ class GameState extends FlxState
 
 	public function new()
 	{
-		map = new FlxTilemap();
 		super();
 	}
 
@@ -34,6 +33,7 @@ class GameState extends FlxState
 
 	function createMap(mapId:String)
 	{
+		if (map == null) map = new FlxTilemap();
 		var mapData:String = Assets.getText(mapId);
 		map.loadMapFromCSV(mapData, AssetPaths.tiles__png, 32, 32, null, 0, 1, 1);
 		add(map);
@@ -42,7 +42,7 @@ class GameState extends FlxState
 	function createPlayer()
 	{
 		clearCurrentGame();
-		player = new Player(100, 100);
+		player = new Player(50, 100);
 		add(player);
 	}
 
@@ -68,7 +68,17 @@ class GameState extends FlxState
 			startNewGame();
 		}
 
+		if (player.y > 400)
+		{
+			gameOver();
+		}
+
 		super.update(elapsed);
 		FlxG.collide(map, player);
+	}
+
+	function gameOver()
+	{
+		startNewGame();
 	}
 }
