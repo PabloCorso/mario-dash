@@ -43,7 +43,7 @@ class GameState extends FlxState
 	function createPlayer()
 	{
 		clearCurrentGame();
-		player = new Player(this,100, 100);
+		player = new Player(this, 100, 100);
 		add(player);
 	}
 
