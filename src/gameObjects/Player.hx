@@ -32,8 +32,7 @@ class Player extends FlxSprite
 		loadAnimations();
 		flipX = true;
 		offset.y = 20;
-		width = 40;
-		height = 41;
+		setSize(40, 41);
 	}
 
 	function loadAnimations()
@@ -49,14 +48,18 @@ class Player extends FlxSprite
 	var ACCELERATION:Float = 1000;
 	override public function update(elapsed:Float)
 	{
+		movement();
+		updateAnimation(elapsed);
+		super.update(elapsed);
+	}
+	
+	function movement() 
+	{
 		acceleration.x = ACCELERATION;
 		if (mustJump())
 		{
 			velocity.y = -400;
 		}
-
-		updateAnimation(elapsed);
-		super.update(elapsed);
 	}
 
 	function mustJump()

@@ -1,4 +1,4 @@
-package ;
+package states ;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -26,7 +26,7 @@ class GameState extends FlxState
 
 	function startNewGame()
 	{
-		createMap(AssetPaths.mapCSV_map2_tiles__csv);
+		createMap(AssetPaths.level1__csv);
 		createPlayer();
 		setCameraBehaviour();
 	}

@@ -2,6 +2,7 @@ package ;
 import flixel.FlxGame;
 import openfl.display.Sprite;
 import openfl.events.Event;
+import states.MenuState;
 
 class Main extends Sprite
 {
@@ -16,7 +17,7 @@ class Main extends Sprite
 	{
 		removeEventListener(Event.ADDED_TO_STAGE, init);
 
-		addChild(new FlxGame(800, 400, GameState));
+		addChild(new FlxGame(800, 400, MenuState));
 	}
 
 }
