@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxState;
 import flixel.group.FlxGroup;
+import flixel.math.FlxPoint;
 import flixel.tile.FlxTilemap;
 import flixel.math.FlxRect;
 import gameObjects.Player;
@@ -26,6 +27,7 @@ class GameState extends FlxState
 
 	function startNewGame()
 	{
+		clearCurrentGame();
 		createMap(AssetPaths.level1__csv);
 		createPlayer();
 		setCameraBehaviour();
@@ -41,8 +43,10 @@ class GameState extends FlxState
 
 	function createPlayer()
 	{
-		clearCurrentGame();
-		player = new Player(50, 100);
+		var startTileIndex:Int = map.getTileInstances(1)[0];
+		map.setTileByIndex(startTileIndex, 0, true);
+		var startCoords:FlxPoint = map.getTileCoordsByIndex(startTileIndex);
+		player = new Player(startCoords.x, startCoords.y - 32);
 		add(player);
 	}
 
