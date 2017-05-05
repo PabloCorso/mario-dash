@@ -9,11 +9,11 @@ import flixel.tile.FlxTilemap;
 import flixel.math.FlxRect;
 import gameObjects.Player;
 import openfl.Assets;
+import gameObjects.GameMap;
 
 class GameState extends FlxState
 {
-	static inline var mapTilesSize:Int = 32;
-	var map:FlxTilemap;
+	var map:GameMap;
 	var player:Player;
 
 	public function new()
@@ -23,6 +23,7 @@ class GameState extends FlxState
 
 	override public function create():Void
 	{
+		map = new GameMap();
 		startNewGame();
 	}
 
@@ -36,24 +37,15 @@ class GameState extends FlxState
 
 	function createMap(mapId:String)
 	{
-		if (map == null) map = new FlxTilemap();
-		var mapData:String = Assets.getText(mapId);
-		map.loadMapFromCSV(mapData, AssetPaths.tiles__png, mapTilesSize, mapTilesSize, null, 0, 1, 1);
+		map.load(mapId);
 		add(map);
 	}
 
 	function createPlayer()
 	{
-		var startCoords:FlxPoint = getStartPoint();
-		player = new Player(startCoords.x, startCoords.y - mapTilesSize);
+		var startCoords:FlxPoint = map.getStartPoint();
+		player = new Player(startCoords.x, startCoords.y);
 		add(player);
-	}
-	
-	function getStartPoint() 
-	{
-		var startTileIndex:Int = map.getTileInstances(1)[0];
-		map.setTileByIndex(startTileIndex, 0, true);
-		return map.getTileCoordsByIndex(startTileIndex);
 	}
 
 	function clearCurrentGame()
@@ -84,7 +76,24 @@ class GameState extends FlxState
 		}
 
 		super.update(elapsed);
+		
+		if (playerFinished())
+		{
+			finishGame();
+			return;
+		}
+		
 		FlxG.collide(map, player);
+	}
+
+	function finishGame()
+	{
+		return FlxG.switchState(new MenuState());
+	}
+
+	function playerFinished()
+	{
+		return player.x >= map.getEndPosition();
 	}
 
 	function gameOver()
