@@ -12,6 +12,7 @@ import openfl.Assets;
 
 class GameState extends FlxState
 {
+	static inline var mapTilesSize:Int = 32;
 	var map:FlxTilemap;
 	var player:Player;
 
@@ -37,17 +38,22 @@ class GameState extends FlxState
 	{
 		if (map == null) map = new FlxTilemap();
 		var mapData:String = Assets.getText(mapId);
-		map.loadMapFromCSV(mapData, AssetPaths.tiles__png, 32, 32, null, 0, 1, 1);
+		map.loadMapFromCSV(mapData, AssetPaths.tiles__png, mapTilesSize, mapTilesSize, null, 0, 1, 1);
 		add(map);
 	}
 
 	function createPlayer()
 	{
+		var startCoords:FlxPoint = getStartPoint();
+		player = new Player(startCoords.x, startCoords.y - mapTilesSize);
+		add(player);
+	}
+	
+	function getStartPoint() 
+	{
 		var startTileIndex:Int = map.getTileInstances(1)[0];
 		map.setTileByIndex(startTileIndex, 0, true);
-		var startCoords:FlxPoint = map.getTileCoordsByIndex(startTileIndex);
-		player = new Player(startCoords.x, startCoords.y - 32);
-		add(player);
+		return map.getTileCoordsByIndex(startTileIndex);
 	}
 
 	function clearCurrentGame()
