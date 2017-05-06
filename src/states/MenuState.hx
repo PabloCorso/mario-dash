@@ -1,12 +1,12 @@
 package states ;
-import controls.LevelButton;
+import controls.MapButton;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.ui.FlxButton;
 
 class MenuState extends FlxState
 {
-	private var btnLevel1:FlxButton;
+	private var btnMap1:FlxButton;
 
 	public function new()
 	{
@@ -21,12 +21,9 @@ class MenuState extends FlxState
 
 	function addLevelButtons()
 	{
-		//btnPlay = new FlxButton(0, 0, "Level 1", clickPlayLevel1);
-		btnLevel1 = new LevelButton(0, 0, 1);
-		btnLevel1.setGraphicSize(100, 28);
-		btnLevel1.setSize(100, 28);
-		btnLevel1.screenCenter();
-		add(btnLevel1);
+		btnMap1 = new MapButton(0, 0, 1);
+		btnMap1 .screenCenter();
+		add(btnMap1);
 	}
 
 }
