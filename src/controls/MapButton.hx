@@ -1,14 +1,15 @@
 package controls;
 import flixel.FlxG;
+import gameObjects.MapData;
 import states.GameState;
 
 class MapButton extends MenuButton
 {
-	var mapNumber:Int;
+	var map:MapData;
 
-	public function new(X:Float=0, Y:Float=0, MapNumber:Int)
+	public function new(X:Float=0, Y:Float=0, mapData:MapData)
 	{
-		mapNumber = MapNumber;
+		map = mapData;
 		super(X, Y, getMapText(), onClick);
 
 		setControlProperties();
@@ -22,7 +23,7 @@ class MapButton extends MenuButton
 
 	function getMapText()
 	{
-		return "Level " + mapNumber;
+		return map.number + " - " + map.title;
 	}
 
 	function onClick()
@@ -33,11 +34,7 @@ class MapButton extends MenuButton
 
 	function getMapId():String
 	{
-		switch (mapNumber)
-		{
-			case 1: { return AssetPaths.map_1__csv; }
-			default: return "";
-		}
+		return "assets/maps/" + map.path + ".csv";
 	}
 
 }

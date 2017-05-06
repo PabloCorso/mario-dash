@@ -20,7 +20,7 @@ class GameMap extends FlxTilemap
 	{
 		var mapData:String = Assets.getText(mapId);
 		loadMapFromCSV(mapData, AssetPaths.tiles__png, mapTilesSize, mapTilesSize, null, 0, 1, 1);
-
+		
 		var endTileIndex:Int = getTileIndex(endTile);
 		endPositionX = getTileCoordsByIndex(endTileIndex).x - mapTilesSize*2;
 	}
