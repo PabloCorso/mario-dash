@@ -14,10 +14,12 @@ import gameObjects.GameMap;
 class GameState extends FlxState
 {
 	var map:GameMap;
+	var mapId:String;
 	var player:Player;
 
-	public function new()
+	public function new(mapId:String)
 	{
+		this.mapId = mapId;
 		super();
 	}
 
@@ -30,12 +32,12 @@ class GameState extends FlxState
 	function startNewGame()
 	{
 		clearCurrentGame();
-		createMap(AssetPaths.level1__csv);
+		createMap();
 		createPlayer();
 		setCameraBehaviour();
 	}
 
-	function createMap(mapId:String)
+	function createMap()
 	{
 		map.load(mapId);
 		add(map);
@@ -76,13 +78,13 @@ class GameState extends FlxState
 		}
 
 		super.update(elapsed);
-		
+
 		if (playerFinished())
 		{
 			finishGame();
 			return;
 		}
-		
+
 		FlxG.collide(map, player);
 	}
 

@@ -14,15 +14,22 @@ class MenuState extends FlxState
 	
 	override public function create():Void 
 	{
-		btnPlay = new FlxButton(0, 0, "Play", clickPlay);
-		btnPlay.screenCenter();
-		add(btnPlay);
+		addLevelButtons();
 		super.create();
 	}
 	
-	function clickPlay():Void
+	function addLevelButtons() 
 	{
-		FlxG.switchState(new GameState());
+		btnPlay = new FlxButton(0, 0, "Level 1", clickPlayLevel1);
+		btnPlay.setGraphicSize(100, 28);
+		btnPlay.setSize(100, 28);
+		btnPlay.screenCenter();
+		add(btnPlay);
+	}
+	
+	function clickPlayLevel1():Void
+	{
+		FlxG.switchState(new GameState(AssetPaths.level1__csv));
 	}
 	
 }
