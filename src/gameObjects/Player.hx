@@ -11,8 +11,6 @@ class Player extends FlxSprite
 	private static inline var jump:String = "jump";
 	private static inline var fall:String = "fall";
 	private static inline var wallHang:String = "wallHang";
-	private static  var jumps:Int = 0;
-	private static inline var maxJumps:Int = 2;
 
 	public function new(X:Float=0, Y:Float=0)
 	{
@@ -48,26 +46,40 @@ class Player extends FlxSprite
 	}
 
 	var ACCELERATION:Float = 1000;
+	var isJumping:Bool;
+	var jumpCounter: Int = 0;
+	var maxJump:Int = 30;
 	override public function update(elapsed:Float)
 	{
 		movement();
 		updateAnimation(elapsed);
 		super.update(elapsed);
 	}
-	
-	function movement() 
+
+	function movement()
 	{
 		acceleration.x = ACCELERATION;
-		if (mustJump())
+		if (isStartingJump())
 		{
-			velocity.y = -400;
+			isJumping = true;
+			velocity.y = -200;
+		}
+
+		if (isJumping && FlxG.keys.pressed.SPACE && jumpCounter < maxJump)
+		{
+			jumpCounter = jumpCounter + 1;
+			velocity.y = -200;
+		}
+		else
+		{
+			isJumping = false;
+			jumpCounter = 0;
 		}
 	}
 
-	function mustJump()
+	function isStartingJump()
 	{
-		 
-		return FlxG.keys.pressed.SPACE && (jumps <=  maxJumps);
+		return isTouching(FlxObject.FLOOR) && FlxG.keys.pressed.SPACE;
 	}
 
 	override function updateAnimation(elapsed:Float)
@@ -81,13 +93,10 @@ class Player extends FlxSprite
 			else
 			{
 				animation.play(jump);
-				jumps++;
 			}
 		}
 		else
 		{
-			//si toco el piso, reinicio el contador de saltos
-			jumps = 0;
 			if (velocity.x != 0)
 			{
 				animation.play(run);
