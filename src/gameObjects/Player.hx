@@ -10,7 +10,6 @@ class Player extends FlxSprite
 	private static inline var stand:String = "stand";
 	private static inline var jump:String = "jump";
 	private static inline var fall:String = "fall";
-	private static inline var wallHang:String = "wallHang";
 
 	public function new(X:Float=0, Y:Float=0)
 	{
@@ -41,7 +40,6 @@ class Player extends FlxSprite
 		animation.add(stand, [10]);
 		animation.add(jump, [1]);
 		animation.add(fall, [0]);
-		animation.add(wallHang,[11]);
 		animation.play(stand);
 	}
 
@@ -81,7 +79,8 @@ class Player extends FlxSprite
 	{
 		return isTouching(FlxObject.FLOOR) && FlxG.keys.pressed.SPACE;
 	}
-
+	
+	
 	override function updateAnimation(elapsed:Float)
 	{
 		if (!isTouching(FlxObject.FLOOR))

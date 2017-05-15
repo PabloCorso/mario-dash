@@ -26,6 +26,7 @@ class GameState extends FlxState
 	override public function create():Void
 	{
 		map = new GameMap();
+	
 		startNewGame();
 	}
 
@@ -35,6 +36,7 @@ class GameState extends FlxState
 		createMap();
 		createPlayer();
 		setCameraBehaviour();
+		setDieTiles();
 	}
 
 	function createMap()
@@ -72,6 +74,7 @@ class GameState extends FlxState
 			startNewGame();
 		}
 
+	
 		if (player.y > 400)
 		{
 			gameOver();
@@ -102,4 +105,21 @@ class GameState extends FlxState
 	{
 		startNewGame();
 	}
+	
+		public function setDieTiles()
+	{
+		map.setTileProperties(GameMap.dieTileDown, FlxObject.ANY, playerDeath);
+		map.setTileProperties(GameMap.dieTileLeft, FlxObject.ANY, playerDeath);
+		map.setTileProperties(GameMap.dieTileUp, FlxObject.ANY, playerDeath);
+		map.setTileProperties(GameMap.dieTileRight, FlxObject.ANY, playerDeath);
+	}
+	
+	public function playerDeath(Tile:FlxObject, Particle:FlxObject):Void
+	{
+		this.gameOver();
+	}
+	
+
+	
+	
 }
