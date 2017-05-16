@@ -36,5 +36,4 @@ class MapButton extends MenuButton
 	{
 		return "assets/maps/" + map.path + ".csv";
 	}
-
 }

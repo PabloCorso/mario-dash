@@ -13,7 +13,6 @@ class GameMap extends FlxTilemap
 	public static inline var dieTileUp = 4;
 	public static inline var dieTileDown = 13;
 
-
 	var endPositionX:Float;
 
 	public function new()
@@ -25,7 +24,7 @@ class GameMap extends FlxTilemap
 	{
 		var mapData:String = Assets.getText(mapId);
 		loadMapFromCSV(mapData, AssetPaths.tilesNew__png, mapTilesSize, mapTilesSize, null, 0, 1, 1);
-	
+
 		var endTileIndex:Int = getTileIndex(endTile);
 		endPositionX = getTileCoordsByIndex(endTileIndex).x - mapTilesSize*2;
 	}
@@ -54,11 +53,9 @@ class GameMap extends FlxTilemap
 	{
 		setTileByIndex(startTileIndex, 0, true);
 	}
-	
+
 	public function getAllTilesByTipe(tile:Int):Array<Int>
 	{
 		return getTileInstances(tile);
 	}
-
-
 }

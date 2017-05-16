@@ -41,5 +41,4 @@ class MenuState extends FlxState
 			}
 		}
 	}
-
 }

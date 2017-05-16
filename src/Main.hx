@@ -6,7 +6,6 @@ import states.MenuState;
 
 class Main extends Sprite
 {
-
 	public function new()
 	{
 		super();
@@ -19,5 +18,4 @@ class Main extends Sprite
 
 		addChild(new FlxGame(800, 400, MenuState));
 	}
-
 }

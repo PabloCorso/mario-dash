@@ -79,8 +79,7 @@ class Player extends FlxSprite
 	{
 		return isTouching(FlxObject.FLOOR) && FlxG.keys.pressed.SPACE;
 	}
-	
-	
+
 	override function updateAnimation(elapsed:Float)
 	{
 		if (!isTouching(FlxObject.FLOOR))
