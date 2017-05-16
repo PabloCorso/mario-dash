@@ -28,6 +28,11 @@ class MenuState extends FlxState
 		var mapsFile = Assets.getText(mapsFilePath);
 		var maps:Array<MapData> = Json.parse(mapsFile);
 
+		displayMapButtons(maps);
+	}
+	
+	function displayMapButtons(maps:Array<MapData>) 
+	{
 		var i:Int;
 		if (maps.length > 0)
 		{

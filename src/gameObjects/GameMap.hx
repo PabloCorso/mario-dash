@@ -44,7 +44,7 @@ class GameMap extends FlxTilemap
 		return endPositionX;
 	}
 
-	public function getTileIndex(tile:Int):Int
+	function getTileIndex(tile:Int):Int
 	{
 		return getTileInstances(tile)[0];
 	}
