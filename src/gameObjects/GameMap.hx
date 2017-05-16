@@ -53,9 +53,4 @@ class GameMap extends FlxTilemap
 	{
 		setTileByIndex(startTileIndex, 0, true);
 	}
-
-	public function getAllTilesByTipe(tile:Int):Array<Int>
-	{
-		return getTileInstances(tile);
-	}
 }
