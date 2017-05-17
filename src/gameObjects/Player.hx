@@ -43,30 +43,31 @@ class Player extends FlxSprite
 		animation.play(stand);
 	}
 
-	var ACCELERATION:Float = 1000;
+	private static inline var ACCELERATION:Float = 1000;
+	private static inline var velocityY:Int = -200;
+	private static inline var maxJump:Float = 500;
 	var isJumping:Bool;
-	var jumpCounter: Int = 0;
-	var maxJump:Int = 30;
+	var jumpCounter: Float = 0;
 	override public function update(elapsed:Float)
 	{
-		movement();
+		movement(elapsed);
 		updateAnimation(elapsed);
 		super.update(elapsed);
 	}
 
-	function movement()
+	function movement(elapsed:Float)
 	{
 		acceleration.x = ACCELERATION;
 		if (isStartingJump())
 		{
 			isJumping = true;
-			velocity.y = -200;
+			velocity.y = velocityY;
 		}
 
 		if (isJumping && FlxG.keys.pressed.SPACE && jumpCounter < maxJump)
 		{
-			jumpCounter = jumpCounter + 1;
-			velocity.y = -200;
+			jumpCounter += elapsed * 1000;
+			velocity.y = velocityY;
 		}
 		else
 		{
