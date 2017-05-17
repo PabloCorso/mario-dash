@@ -2,6 +2,11 @@
 	{
 		"title": "Warm up",
 		"number": 1,
-		"path": "mapNew"
+		"path": "map01"
+	},
+	{
+		"title": "Ice chips",
+		"number": 2,
+		"path": "map02"
 	}
 ]

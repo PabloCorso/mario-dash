@@ -41,7 +41,7 @@ class MenuState extends FlxState
 			{
 				var btn = new MapButton(0, 0, maps[i]);
 				btn.screenCenter(FlxAxes.X);
-				btn.y += i + 1 * 50;
+				btn.y += (i + 1 )* 50;
 				add(btn);
 			}
 		}
