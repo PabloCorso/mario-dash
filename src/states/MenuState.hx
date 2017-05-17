@@ -30,8 +30,8 @@ class MenuState extends FlxState
 
 		displayMapButtons(maps);
 	}
-	
-	function displayMapButtons(maps:Array<MapData>) 
+
+	function displayMapButtons(maps:Array<MapData>)
 	{
 		var i:Int;
 		if (maps.length > 0)

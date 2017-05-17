@@ -2,7 +2,7 @@ package gameObjects;
 
 typedef MapData =
 {
-	var number:Int;
+	var id:Int;
 	var title:String;
 	var path:String;
 }

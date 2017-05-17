@@ -1,12 +1,12 @@
 [
 	{
+		"id": 1,
 		"title": "Warm up",
-		"number": 1,
 		"path": "map01"
 	},
 	{
+		"id": 2,
 		"title": "Ice chips",
-		"number": 2,
 		"path": "map02"
 	}
 ]

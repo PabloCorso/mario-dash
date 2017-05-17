@@ -23,7 +23,7 @@ class MapButton extends MenuButton
 
 	function getMapText()
 	{
-		return map.number + " - " + map.title;
+		return map.id + " - " + map.title;
 	}
 
 	function onClick()
