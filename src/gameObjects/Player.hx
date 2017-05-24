@@ -11,10 +11,9 @@ class Player extends FlxSprite
 	private static inline var jump:String = "jump";
 	private static inline var fall:String = "fall";
 
-	public function new(X:Float=0, Y:Float=0)
+	public function new()
 	{
-		super(X, Y);
-
+		super();
 		initializeGraphics();
 		setPhysics();
 	}
@@ -64,7 +63,7 @@ class Player extends FlxSprite
 			velocity.y = velocityY;
 		}
 
-		if (isJumping && FlxG.keys.pressed.SPACE && jumpCounter < maxJump)
+		if (isJumping && pressedJumpKey() && jumpCounter < maxJump)
 		{
 			jumpCounter += elapsed * 1000;
 			velocity.y = velocityY;
@@ -76,9 +75,14 @@ class Player extends FlxSprite
 		}
 	}
 
+	function pressedJumpKey()
+	{
+		return FlxG.keys.pressed.SPACE;
+	}
+
 	function isStartingJump()
 	{
-		return isTouching(FlxObject.FLOOR) && FlxG.keys.pressed.SPACE;
+		return isTouching(FlxObject.FLOOR) && pressedJumpKey();
 	}
 
 	override function updateAnimation(elapsed:Float)
