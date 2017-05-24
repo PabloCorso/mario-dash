@@ -3,12 +3,8 @@ import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxState;
-import flixel.group.FlxGroup;
 import flixel.math.FlxPoint;
-import flixel.tile.FlxTilemap;
-import flixel.math.FlxRect;
 import gameObjects.Player;
-import openfl.Assets;
 import gameObjects.GameMap;
 
 class GameState extends FlxState
@@ -26,16 +22,15 @@ class GameState extends FlxState
 	override public function create():Void
 	{
 		map = new GameMap();
+		player = new Player();
+
 		startNewGame();
 	}
 
 	function startNewGame()
 	{
-		clearCurrentGame();
 		createMap();
-		createPlayer();
-		setCameraBehaviour();
-		setDieTiles();
+		renewGame();
 	}
 
 	function createMap()
@@ -44,10 +39,18 @@ class GameState extends FlxState
 		add(map);
 	}
 
-	function createPlayer()
+	function renewGame()
+	{
+		clearCurrentGame();
+		setPlayerAtStart();
+		setCameraBehaviour();
+		setDieTiles();
+	}
+
+	function setPlayerAtStart()
 	{
 		var startCoords:FlxPoint = map.getStartPoint();
-		player = new Player(startCoords.x, startCoords.y);
+		player.setPosition(startCoords.x, startCoords.y);
 		add(player);
 	}
 
@@ -70,7 +73,7 @@ class GameState extends FlxState
 	{
 		if (FlxG.keys.justPressed.ESCAPE)
 		{
-			startNewGame();
+			renewGame();
 		}
 
 		if (player.y > 400)
@@ -101,7 +104,7 @@ class GameState extends FlxState
 
 	function gameOver()
 	{
-		startNewGame();
+		renewGame();
 	}
 
 	public function setDieTiles()

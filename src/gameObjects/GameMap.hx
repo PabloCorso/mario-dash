@@ -1,7 +1,7 @@
 package gameObjects;
 import flixel.math.FlxPoint;
 import flixel.tile.FlxTilemap;
-import lime.Assets;
+import openfl.Assets;
 
 class GameMap extends FlxTilemap
 {
@@ -13,6 +13,7 @@ class GameMap extends FlxTilemap
 	public static inline var dieTileUp = 4;
 	public static inline var dieTileDown = 13;
 
+	var startPoistion:FlxPoint;
 	var endPositionX:Float;
 
 	public function new()
@@ -25,18 +26,28 @@ class GameMap extends FlxTilemap
 		var mapData:String = Assets.getText(mapId);
 		loadMapFromCSV(mapData, AssetPaths.tilesNew__png, mapTilesSize, mapTilesSize, null, 0, 1, 1);
 
+		setStartPosition();
+		setEndPosition();
+	}
+
+	function setStartPosition()
+	{
+		var startTileIndex:Int = getTileIndex(startTile);
+		hideTile(startTileIndex);
+
+		startPoistion = getTileCoordsByIndex(startTileIndex);
+		startPoistion.y -= mapTilesSize;
+	}
+
+	function setEndPosition()
+	{
 		var endTileIndex:Int = getTileIndex(endTile);
 		endPositionX = getTileCoordsByIndex(endTileIndex).x - mapTilesSize*2;
 	}
 
 	public function getStartPoint():FlxPoint
 	{
-		var startTileIndex:Int = getTileIndex(startTile);
-		hideTile(startTileIndex);
-
-		var startPoint:FlxPoint = getTileCoordsByIndex(startTileIndex);
-		startPoint.y -= mapTilesSize;
-		return startPoint;
+		return startPoistion;
 	}
 
 	public function getEndPosition():Float
