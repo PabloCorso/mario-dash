@@ -42,7 +42,7 @@ class Player extends FlxSprite
 		animation.play(stand);
 	}
 
-	private static inline var ACCELERATION:Float = 1000;
+	private static inline var ACCELERATION:Float = 300;
 	private static inline var velocityY:Int = -200;
 	private static inline var maxJump:Float = 500;
 	var isJumping:Bool;
