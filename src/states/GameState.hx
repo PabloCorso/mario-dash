@@ -28,10 +28,10 @@ class GameState extends FlxState
 
 	function startNewGame()
 	{
-		createHud();
 		player = new Player();
 		createMap();
 		setCameraBehaviour();
+		createHud();
 		renewGame();
 	}
 
