@@ -1,4 +1,5 @@
 package gameObjects;
+import flixel.FlxObject;
 import flixel.math.FlxPoint;
 import flixel.tile.FlxTilemap;
 import openfl.Assets;
@@ -63,5 +64,13 @@ class GameMap extends FlxTilemap
 	function hideTile(startTileIndex:Int)
 	{
 		setTileByIndex(startTileIndex, 0, true);
+	}
+
+	public function setDeadlyTileCollisions(playerDeath:FlxObject->FlxObject->Void)
+	{
+		setTileProperties(dieTileDown, FlxObject.ANY, playerDeath);
+		setTileProperties(dieTileLeft, FlxObject.ANY, playerDeath);
+		setTileProperties(dieTileUp, FlxObject.ANY, playerDeath);
+		setTileProperties(dieTileRight, FlxObject.ANY, playerDeath);
 	}
 }

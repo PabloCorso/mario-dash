@@ -30,6 +30,7 @@ class GameState extends FlxState
 	function startNewGame()
 	{
 		createMap();
+		setCameraBehaviour();
 		renewGame();
 	}
 
@@ -39,12 +40,18 @@ class GameState extends FlxState
 		add(map);
 	}
 
+	function setCameraBehaviour()
+	{
+		FlxG.camera.setScrollBoundsRect(0, 0, map.width, map.height);
+		FlxG.camera.follow(player, FlxCameraFollowStyle.PLATFORMER);
+		FlxG.worldBounds.set(0, 0, map.width, map.height);
+	}
+
 	function renewGame()
 	{
 		clearCurrentGame();
 		setPlayerAtStart();
-		setCameraBehaviour();
-		setDieTiles();
+		map.setDeadlyTileCollisions(deadlyTileCollision);
 	}
 
 	function setPlayerAtStart()
@@ -60,13 +67,6 @@ class GameState extends FlxState
 		{
 			remove(player);
 		}
-	}
-
-	function setCameraBehaviour()
-	{
-		FlxG.camera.setScrollBoundsRect(0, 0, map.width, map.height);
-		FlxG.camera.follow(player, FlxCameraFollowStyle.PLATFORMER);
-		FlxG.worldBounds.set(0, 0, map.width, map.height);
 	}
 
 	override public function update(elapsed:Float):Void
@@ -107,15 +107,7 @@ class GameState extends FlxState
 		renewGame();
 	}
 
-	public function setDieTiles()
-	{
-		map.setTileProperties(GameMap.dieTileDown, FlxObject.ANY, playerDeath);
-		map.setTileProperties(GameMap.dieTileLeft, FlxObject.ANY, playerDeath);
-		map.setTileProperties(GameMap.dieTileUp, FlxObject.ANY, playerDeath);
-		map.setTileProperties(GameMap.dieTileRight, FlxObject.ANY, playerDeath);
-	}
-
-	public function playerDeath(Tile:FlxObject, Particle:FlxObject):Void
+	public function deadlyTileCollision(Tile:FlxObject, Particle:FlxObject):Void
 	{
 		this.gameOver();
 	}
