@@ -107,7 +107,7 @@ class GameState extends FlxState
 		renewGame();
 	}
 
-	public function deadlyTileCollision(Tile:FlxObject, Particle:FlxObject):Void
+	function deadlyTileCollision(Tile:FlxObject, Particle:FlxObject):Void
 	{
 		this.gameOver();
 	}
