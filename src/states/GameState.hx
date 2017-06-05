@@ -1,4 +1,5 @@
 package states ;
+import controls.Hud;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -12,6 +13,7 @@ class GameState extends FlxState
 	var map:GameMap;
 	var mapId:String;
 	var player:Player;
+	var hud:Hud;
 
 	public function new(mapId:String)
 	{
@@ -21,23 +23,30 @@ class GameState extends FlxState
 
 	override public function create():Void
 	{
-		map = new GameMap();
-		player = new Player();
-
 		startNewGame();
 	}
 
 	function startNewGame()
 	{
+		createHud();
+		player = new Player();
 		createMap();
 		setCameraBehaviour();
 		renewGame();
 	}
 
+	function createHud()
+	{
+		hud = new Hud();
+		add(hud);
+	}
+
 	function createMap()
 	{
+		map = new GameMap();
 		map.load(mapId);
 		add(map);
+		map.setDeadlyTileCollisions(deadlyTileCollision);
 	}
 
 	function setCameraBehaviour()
@@ -51,7 +60,7 @@ class GameState extends FlxState
 	{
 		clearCurrentGame();
 		setPlayerAtStart();
-		map.setDeadlyTileCollisions(deadlyTileCollision);
+		hud.addTry();
 	}
 
 	function setPlayerAtStart()
@@ -71,14 +80,9 @@ class GameState extends FlxState
 
 	override public function update(elapsed:Float):Void
 	{
-		if (FlxG.keys.justPressed.ESCAPE)
+		if (FlxG.keys.justPressed.ESCAPE || isPlayerFalling())
 		{
 			renewGame();
-		}
-
-		if (player.y > 400)
-		{
-			gameOver();
 		}
 
 		super.update(elapsed);
@@ -92,6 +96,11 @@ class GameState extends FlxState
 		FlxG.collide(map, player);
 	}
 
+	function isPlayerFalling()
+	{
+		return player.y > FlxG.height;
+	}
+
 	function finishGame()
 	{
 		return FlxG.switchState(new MenuState());
@@ -102,13 +111,8 @@ class GameState extends FlxState
 		return player.x >= map.getEndPosition();
 	}
 
-	function gameOver()
-	{
-		renewGame();
-	}
-
 	function deadlyTileCollision(Tile:FlxObject, Particle:FlxObject):Void
 	{
-		this.gameOver();
+		renewGame();
 	}
 }
