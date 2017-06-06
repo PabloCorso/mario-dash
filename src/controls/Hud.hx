@@ -4,23 +4,38 @@ import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
+import utils.IntUtils;
 
 class Hud extends FlxTypedGroup<FlxSprite>
 {
-	var txtTries:FlxText;
+	static inline var triesNumberWidth:Int = 10;
+
 	var tries:Int;
-	var sprBack:FlxSprite;
+	var txtTries:FlxText;
+	var triesBackground:FlxSprite;
 
 	public function new()
 	{
 		super();
 
+		triesBackground = new FlxSprite();
+		triesBackground.setPosition(16 - 4, 8);
+		drawTriesBackground();
+		add(triesBackground);
+
 		tries = 0;
-		txtTries = new FlxText(16, 16, 0, getTriesText(), 16);
+		txtTries = new FlxText(triesNumberWidth, 8, 0, getTriesText(), 16);
 		txtTries.setBorderStyle(SHADOW, FlxColor.GRAY, 1, 1);
 		add(txtTries);
 
 		setHudElementsFixedBehaviour();
+	}
+
+	function drawTriesBackground()
+	{
+		var length = IntUtils.GetNumberLength(tries);
+		var txtTriesWidth = triesNumberWidth * length;
+		triesBackground.makeGraphic(txtTriesWidth + 3, 22, FlxColor.BLACK);
 	}
 
 	function setHudElementsFixedBehaviour()
@@ -40,5 +55,6 @@ class Hud extends FlxTypedGroup<FlxSprite>
 	{
 		tries += 1;
 		txtTries.text = getTriesText();
+		drawTriesBackground();
 	}
 }
