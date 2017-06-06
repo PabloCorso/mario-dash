@@ -1,9 +1,12 @@
 package states ;
-import controls.MapButton;
+import controls.menu.MapButton;
+import controls.menu.MenuList;
 import flixel.FlxG;
 import flixel.FlxState;
+import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.util.FlxAxes;
+import flixel.util.FlxColor;
 import gameObjects.MapData;
 import haxe.Json;
 import openfl.Assets;
@@ -19,6 +22,12 @@ class MenuState extends FlxState
 
 	override public function create():Void
 	{
+		var title = new FlxText(0, 0, 0, "Mario Dash", 50);
+		title.screenCenter(FlxAxes.X);
+		title.y = 40;
+		title.setBorderStyle(SHADOW, FlxColor.GRAY, 1, 1);
+		add(title);
+
 		addMapButtons();
 		super.create();
 	}
@@ -27,23 +36,18 @@ class MenuState extends FlxState
 	{
 		var mapsFile = Assets.getText(mapsFilePath);
 		var maps:Array<MapData> = Json.parse(mapsFile);
-
 		displayMapButtons(maps);
 	}
 
 	function displayMapButtons(maps:Array<MapData>)
 	{
-		var i:Int;
 		if (maps.length > 0)
 		{
-			var mult = FlxG.height / maps.length;
-			for (i in 0...maps.length)
-			{
-				var btn = new MapButton(0, 0, maps[i]);
-				btn.screenCenter(FlxAxes.X);
-				btn.y += (i + 1 )* 50;
-				add(btn);
-			}
+			var list = new MenuList(maps);
+			list.screenCenter(FlxAxes.X);
+			list.y = 140;
+			list.height = 220;
+			add(list);
 		}
 	}
 }
