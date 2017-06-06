@@ -8,7 +8,7 @@ import utils.IntUtils;
 
 class Hud extends FlxTypedGroup<FlxSprite>
 {
-	static inline var triesNumberWidth:Int = 10;
+	static inline var triesNumberSize:Int = 16;
 
 	var tries:Int;
 	var txtTries:FlxText;
@@ -24,7 +24,7 @@ class Hud extends FlxTypedGroup<FlxSprite>
 		add(triesBackground);
 
 		tries = 0;
-		txtTries = new FlxText(triesNumberWidth, 8, 0, getTriesText(), 16);
+		txtTries = new FlxText(16, 8, 0, getTriesText(), triesNumberSize);
 		txtTries.setBorderStyle(SHADOW, FlxColor.GRAY, 1, 1);
 		add(txtTries);
 
@@ -34,8 +34,9 @@ class Hud extends FlxTypedGroup<FlxSprite>
 	function drawTriesBackground()
 	{
 		var length = IntUtils.GetNumberLength(tries);
-		var txtTriesWidth = triesNumberWidth * length;
-		triesBackground.makeGraphic(txtTriesWidth + 3, 22, FlxColor.BLACK);
+		var txtTriesNumbersWidth = triesNumberSize * length;
+		var txtTriesWidth = txtTriesNumbersWidth + 8 - length * 4;
+		triesBackground.makeGraphic(txtTriesWidth, 22, FlxColor.BLACK);
 	}
 
 	function setHudElementsFixedBehaviour()
