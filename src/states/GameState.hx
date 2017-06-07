@@ -43,7 +43,6 @@ class GameState extends FlxState
 		add(hud);
 
 		inGameMenu = new InGameMenu();
-		add(inGameMenu);
 	}
 
 	function createMap()
@@ -65,6 +64,8 @@ class GameState extends FlxState
 	{
 		clearCurrentGame();
 		setPlayerAtStart();
+		add(player);
+		add(inGameMenu);
 		hud.addTry();
 	}
 
@@ -72,15 +73,12 @@ class GameState extends FlxState
 	{
 		var startCoords:FlxPoint = map.getStartPoint();
 		player.setPosition(startCoords.x, startCoords.y);
-		add(player);
 	}
 
 	function clearCurrentGame()
 	{
-		if (player != null)
-		{
-			remove(player);
-		}
+		remove(player);
+		remove(inGameMenu);
 	}
 
 	override public function update(elapsed:Float):Void
@@ -94,6 +92,7 @@ class GameState extends FlxState
 			renewGame();
 		}
 
+		player.moves = !inGameMenu.visible;
 		super.update(elapsed);
 
 		if (inGameMenu.requestedQuit)
