@@ -1,5 +1,6 @@
 package states ;
 import controls.Hud;
+import controls.InGameMenu;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -14,6 +15,7 @@ class GameState extends FlxState
 	var mapId:String;
 	var player:Player;
 	var hud:Hud;
+	var inGameMenu:InGameMenu;
 
 	public function new(mapId:String)
 	{
@@ -31,14 +33,17 @@ class GameState extends FlxState
 		player = new Player();
 		createMap();
 		setCameraBehaviour();
-		createHud();
+		createViewControls();
 		renewGame();
 	}
 
-	function createHud()
+	function createViewControls()
 	{
 		hud = new Hud();
 		add(hud);
+
+		inGameMenu = new InGameMenu();
+		add(inGameMenu);
 	}
 
 	function createMap()
@@ -80,13 +85,22 @@ class GameState extends FlxState
 
 	override public function update(elapsed:Float):Void
 	{
-		if (FlxG.keys.justPressed.ESCAPE || isPlayerFalling())
+		if (isRequestingInGameMenuToggle())
+		{
+			toggleInGameMenu();
+		}
+		else if (isRequestingRenew() || isPlayerFallingOut())
 		{
 			renewGame();
 		}
 
 		super.update(elapsed);
 
+		if (inGameMenu.requestedQuit)
+		{
+			returnToMenu();
+			return;
+		}
 		if (playerFinished())
 		{
 			finishGame();
@@ -96,14 +110,34 @@ class GameState extends FlxState
 		FlxG.collide(map, player);
 	}
 
-	function isPlayerFalling()
+	function toggleInGameMenu()
+	{
+		inGameMenu.toggle();
+	}
+
+	function isRequestingInGameMenuToggle()
+	{
+		return FlxG.keys.justPressed.ESCAPE;
+	}
+
+	function isRequestingRenew()
+	{
+		return FlxG.keys.justPressed.R;
+	}
+
+	function isPlayerFallingOut()
 	{
 		return player.y > FlxG.height;
 	}
 
 	function finishGame()
 	{
-		return FlxG.switchState(new MenuState());
+		returnToMenu();
+	}
+
+	function returnToMenu()
+	{
+		FlxG.switchState(new MenuState());
 	}
 
 	function playerFinished()

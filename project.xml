@@ -19,6 +19,7 @@
 	<haxelib name="flixel" />
 	<haxelib name="actuate" />
 	<haxelib name="flixel-ui" />
+	<haxelib name="flixel-addons" />
 
 	<!-- assets -->
 	<assets path="assets" rename="assets" />
