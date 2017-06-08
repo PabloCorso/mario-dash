@@ -54,18 +54,23 @@ class InGameMenu extends FlxTypedGroup<FlxSprite>
 
 	function drawBackground()
 	{
-		var size = 200;
-		sprBack = new FlxSprite().makeGraphic(size, size, FlxColor.WHITE);
+		var boxWith = 200;
+		var boxHeight = 155;
+		sprBack = new FlxSprite().makeGraphic(boxWith, boxHeight, FlxColor.WHITE);
+		sprBack.scrollFactor.set();
 		sprBack.screenCenter();
-		add(sprBack);
 
 		var headerSize = 50;
 		var borderSize = 2;
-		var innerWidth = size - borderSize;
+		var innerWidth = boxWith - borderSize;
 		var bodyY = headerSize + borderSize;
-		var bodyHeight = size - headerSize - borderSize - 1;
+		var bodyHeight = boxHeight - headerSize - borderSize - 1;
 		sprBackHeader = new FlxSprite(sprBack.x + 1, sprBack.y + 1).makeGraphic(innerWidth, headerSize, FlxColor.BLACK);
 		sprBackBody = new FlxSprite(sprBack.x + 1, sprBack.y + bodyY).makeGraphic(innerWidth, bodyHeight, FlxColor.BLACK);
+		sprBackHeader.scrollFactor.set();
+		sprBackBody.scrollFactor.set();
+
+		add(sprBack);
 		add(sprBackHeader);
 		add(sprBackBody);
 	}
@@ -73,6 +78,7 @@ class InGameMenu extends FlxTypedGroup<FlxSprite>
 	function drawHeader()
 	{
 		txtHeader = new FlxText();
+		txtHeader.scrollFactor.set();
 		txtHeader.text = "Pause";
 		txtHeader.size = 20;
 		FlxSpriteUtils.relativeCenter(txtHeader, sprBackHeader);
@@ -82,6 +88,7 @@ class InGameMenu extends FlxTypedGroup<FlxSprite>
 	function drawOptions()
 	{
 		pointer = new FlxSprite();
+		pointer.scrollFactor.set();
 		pointer.loadGraphic(AssetPaths.pointer__png);
 		pointer.x = sprBack.x + 20;
 		add(pointer);
@@ -91,17 +98,19 @@ class InGameMenu extends FlxTypedGroup<FlxSprite>
 
 		var optionsX = pointer.x + pointer.width + 20;
 		var resumeOption = new FlxText();
+		resumeOption.scrollFactor.set();
 		resumeOption.text = resume;
 		resumeOption.size = textSize;
 		resumeOption.x = optionsX;
-		resumeOption.y = sprBackBody.y + 30;
+		resumeOption.y = sprBackBody.y + 20;
 		choices.push(resumeOption);
 
 		var quitOption = new FlxText();
+		quitOption.scrollFactor.set();
 		quitOption.text = quit;
 		quitOption.size = textSize;
 		quitOption.x = optionsX;
-		quitOption.y = resumeOption.y + textSize + 30;
+		quitOption.y = resumeOption.y + textSize + 20;
 		choices.push(quitOption);
 
 		add(choices[0]);
@@ -160,7 +169,6 @@ class InGameMenu extends FlxTypedGroup<FlxSprite>
 	{
 		if (!visible)
 		{
-			// TODO: ?????
 			sprBack.screenCenter();
 		}
 
