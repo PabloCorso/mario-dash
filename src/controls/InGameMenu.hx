@@ -160,6 +160,7 @@ class InGameMenu extends FlxTypedGroup<FlxSprite>
 	{
 		if (!visible)
 		{
+			// TODO: ?????
 			sprBack.screenCenter();
 		}
 

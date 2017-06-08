@@ -61,10 +61,9 @@ class Player extends FlxSprite
 		if (isStartingJump())
 		{
 			isJumping = true;
-			velocity.y = velocityY;
 		}
 
-		if (isJumping && pressedJumpKey() && jumpCounter < maxJump)
+		if (isJumping && isPressingJumpKey() && !reachedMaxJumpHeight())
 		{
 			jumpCounter += elapsed * 1000;
 			velocity.y = velocityY;
@@ -76,14 +75,19 @@ class Player extends FlxSprite
 		}
 	}
 
-	function pressedJumpKey()
+	function reachedMaxJumpHeight()
+	{
+		return jumpCounter >= maxJump;
+	}
+
+	function isPressingJumpKey()
 	{
 		return FlxG.keys.pressed.SPACE;
 	}
 
 	function isStartingJump()
 	{
-		return isTouching(FlxObject.FLOOR) && pressedJumpKey();
+		return isTouching(FlxObject.FLOOR) && isPressingJumpKey();
 	}
 
 	override function updateAnimation(elapsed:Float)
