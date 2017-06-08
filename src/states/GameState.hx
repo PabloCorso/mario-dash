@@ -116,7 +116,8 @@ class GameState extends FlxState
 
 	function isRequestingInGameMenuToggle()
 	{
-		return FlxG.keys.justPressed.ESCAPE;
+		return FlxG.keys.justPressed.P &&
+			   (player.isTouching(FlxObject.FLOOR) || inGameMenu.visible);
 	}
 
 	function isRequestingRenew()
