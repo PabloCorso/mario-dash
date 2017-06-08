@@ -6,7 +6,7 @@ import openfl.Assets;
 
 class GameMap extends FlxTilemap
 {
-	static inline var mapTilesSize:Int = 32;
+	static inline var mapTilesSize:Int = 16;
 	static inline var startTile:Int = 1;
 	static inline var endTile:Int = 2;
 	public static inline var dieTileRight = 11;
@@ -25,7 +25,7 @@ class GameMap extends FlxTilemap
 	public function load(mapId:String)
 	{
 		var mapData:String = Assets.getText(mapId);
-		loadMapFromCSV(mapData, AssetPaths.tilesNew__png, mapTilesSize, mapTilesSize, null, 0, 1, 1);
+		loadMapFromCSV(mapData, AssetPaths.newTiles__png, mapTilesSize, mapTilesSize, null, 0, 1, 1);
 
 		setStartPosition();
 		setEndPosition();

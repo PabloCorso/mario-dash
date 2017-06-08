@@ -26,7 +26,8 @@ class Player extends FlxSprite
 
 	function initializeGraphics()
 	{
-		loadGraphic(AssetPaths.hero__png, true, 45, 60);
+		loadGraphic(AssetPaths.hero__png, true, 16, 16);
+		
 		loadAnimations();
 		flipX = true;
 		offset.y = 20;
