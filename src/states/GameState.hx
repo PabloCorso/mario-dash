@@ -67,6 +67,7 @@ class GameState extends FlxState
 		add(player);
 		add(inGameMenu);
 		hud.addTry();
+		hud.resetTimer();
 	}
 
 	function setPlayerAtStart()

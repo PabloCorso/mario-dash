@@ -2,7 +2,7 @@ package utils;
 
 class IntUtils
 {
-	public static function GetNumberLength(n:Int)
+	public static function getNumberLength(n:Int)
 	{
 		if (n < 100000)
 		{
