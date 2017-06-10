@@ -27,7 +27,7 @@ class Player extends FlxSprite
 
 	function initializeGraphics()
 	{
-		loadGraphic(AssetPaths.hero__png, true, 16, 16);
+		loadGraphic(AssetPaths.player__png, true, 16, 16);
 		loadAnimations();
 		flipX = true;
 		setSize(16, 16);
