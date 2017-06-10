@@ -41,9 +41,8 @@ class MapState  extends FlxState
 		bestTimesOption.size = textSize;
 		options.push(bestTimesOption);
 
-		//menu = new OptionList(0, 0, FlxG.width / 2, FlxG.height * 0.7);
-		menu = new OptionList(0, 0, FlxG.width, FlxG.height);
-		menu.screenCenter();
+		menu = new OptionList(0, FlxG.height*0.3, FlxG.width, FlxG.height*0.5);
+		menu.screenCenter(FlxAxes.X);
 		menu.setOptions(options, optionSelected);
 		add(menu);
 	}
