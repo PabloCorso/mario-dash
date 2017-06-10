@@ -8,14 +8,14 @@ class GameMap extends FlxTilemap
 {
 	static inline var mapTilesSize:Int = 16;
 	static inline var startTile:Int = 1;
-	static inline var finishTile:Int = 7;
-	public static inline var dieTileRight = 11;
-	public static inline var dieTileLeft = 12;
-	public static inline var dieTileUp = 4;
-	public static inline var dieTileDown = 13;
+	static inline var exitTile:Int = 7;
+	static inline var coinTile:Int = 2;
 
-	var startPoistion:FlxPoint;
-	
+	static inline var dieTileRight = 11;
+	static inline var dieTileLeft = 12;
+	static inline var dieTileUp = 4;
+	static inline var dieTileDown = 13;
+
 	public function new()
 	{
 		super();
@@ -25,32 +25,49 @@ class GameMap extends FlxTilemap
 	{
 		var mapData:String = Assets.getText(mapId);
 		loadMapFromCSV(mapData, AssetPaths.map_tiles__png, mapTilesSize, mapTilesSize, null, 0, 1, 1);
-
-		setStartPosition();
 	}
 
-	function setStartPosition()
+	public function setEntities(EntityLoadCallback:EntityType->FlxPoint->Void, EntityLayer:String = "entities"):Void
 	{
-		var startTileIndex:Int = getTileIndex(startTile);
-		hideTile(startTileIndex);
+		var startPosition = getEntityTilePositions(startTile, true)[0];
+		EntityLoadCallback(EntityType.Player, startPosition);
 
-		startPoistion = getTileCoordsByIndex(startTileIndex);
-		startPoistion.y -= mapTilesSize;
+		var coinPositions = getEntityTilePositions(coinTile, true);
+		for (coinPosition in coinPositions)
+		{
+			EntityLoadCallback(EntityType.Coin, coinPosition);
+		}
 	}
 
-	public function getStartPoint():FlxPoint
+	function getEntityTilePositions(tile:Int, ?hide:Bool=false):Array<FlxPoint>
 	{
-		return startPoistion;
+		var tileIndices = getTileInstances(tile);
+		if (hide) hideTiles(tileIndices);
+
+		var positions = new Array<FlxPoint>();
+		for (tileIndex in tileIndices)
+		{
+			var position = getTilePositionByIndex(tileIndex);
+			positions.push(position);
+		}
+
+		return positions;
 	}
 
-	function getTileIndex(tile:Int):Int
+	function getTilePositionByIndex(tileIndex:Int):FlxPoint
 	{
-		return getTileInstances(tile)[0];
+		var position = getTileCoordsByIndex(tileIndex);
+		position.x -= mapTilesSize/4;
+		position.y -= mapTilesSize/2;
+		return position;
 	}
 
-	function hideTile(startTileIndex:Int)
+	function hideTiles(tileIndices:Array<Int>)
 	{
-		setTileByIndex(startTileIndex, 0, true);
+		for (tileIndex in tileIndices) 
+		{
+			setTileByIndex(tileIndex, 0, true);
+		}
 	}
 
 	public function setDeadlyTileCollisions(playerDeath:FlxObject->FlxObject->Void)
@@ -63,6 +80,6 @@ class GameMap extends FlxTilemap
 
 	public function setFinishTile(playerMayFinish:FlxObject->FlxObject->Void)
 	{
-		setTileProperties(finishTile, FlxObject.ANY, playerMayFinish);
+		setTileProperties(exitTile, FlxObject.ANY, playerMayFinish);
 	}
 }

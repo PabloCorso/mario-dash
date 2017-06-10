@@ -5,7 +5,10 @@ import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxState;
+import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxPoint;
+import gameObjects.Coin;
+import gameObjects.EntityType;
 import gameObjects.Player;
 import gameObjects.GameMap;
 
@@ -16,6 +19,7 @@ class GameState extends FlxState
 	var player:Player;
 	var hud:Hud;
 	var inGameMenu:InGameMenu;
+	var coins:FlxTypedGroup<Coin>;
 
 	public function new(mapId:String)
 	{
@@ -31,6 +35,7 @@ class GameState extends FlxState
 	function startNewGame()
 	{
 		player = new Player();
+		coins = new FlxTypedGroup<Coin>();
 		createMap();
 		setCameraBehaviour();
 		createViewControls();
@@ -54,6 +59,17 @@ class GameState extends FlxState
 		//map.setDeadlyTileCollisions(deadlyTileCollision);
 	}
 
+	private function placeEntities(type:EntityType, position:FlxPoint):Void
+	{
+		switch (type)
+		{
+			case EntityType.Player:
+				player.setPosition(position.x, position.y);
+			case EntityType.Coin:
+				coins.add(new Coin(position.x, position.y));
+		}
+	}
+
 	function setCameraBehaviour()
 	{
 		FlxG.camera.setScrollBoundsRect(0, 0, map.width, map.height);
@@ -64,22 +80,18 @@ class GameState extends FlxState
 	function renewGame()
 	{
 		clearCurrentGame();
-		setPlayerAtStart();
 		add(player);
+		map.setEntities(placeEntities);
+		add(coins);
 		add(inGameMenu);
 		hud.resetTimer();
-	}
-
-	function setPlayerAtStart()
-	{
-		var startCoords:FlxPoint = map.getStartPoint();
-		player.setPosition(startCoords.x, startCoords.y);
 	}
 
 	function clearCurrentGame()
 	{
 		remove(player);
 		remove(inGameMenu);
+		remove(coins);
 	}
 
 	override public function update(elapsed:Float):Void
@@ -103,6 +115,7 @@ class GameState extends FlxState
 		}
 
 		FlxG.collide(map, player);
+		FlxG.overlap(player, coins, playerTouchCoin);
 	}
 
 	function toggleInGameMenu()
@@ -119,6 +132,17 @@ class GameState extends FlxState
 	function isRequestingRenew()
 	{
 		return FlxG.keys.justPressed.R;
+	}
+
+	private function playerTouchCoin(player:Player, coin:Coin):Void
+	{
+		if (coin.alive && coin.exists)
+		{
+			//sndCoin.play(true);
+			//_money++;
+			//_hud.updateHUD(_health, _money);
+			coin.kill();
+		}
 	}
 
 	function playerMayFinished(Tile:FlxObject, Particle:FlxObject)

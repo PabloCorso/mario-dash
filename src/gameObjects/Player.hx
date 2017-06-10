@@ -21,7 +21,7 @@ class Player extends FlxSprite
 	function setPhysics()
 	{
 		drag.x = 500;
-		maxVelocity.x = 75;
+		maxVelocity.x = 80;
 		acceleration.y = 200;
 	}
 
