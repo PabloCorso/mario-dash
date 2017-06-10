@@ -5,6 +5,7 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.text.FlxText;
+import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
 
 class MapState  extends FlxState
@@ -23,11 +24,26 @@ class MapState  extends FlxState
 	function drawMenu()
 	{
 		var options = new Array<FlxSprite>();
-		
-		var playAgainOption = new FlxText(0, 0, 0, "Play again");
+		var textSize = 16;
+
+		var playAgainOption = new FlxText();
+		playAgainOption.text = "Play Again";
+		playAgainOption.size = textSize;
 		options.push(playAgainOption);
 
-		menu = new OptionList();
+		var replayOption = new FlxText();
+		replayOption.text = "Replay";
+		replayOption.size = textSize;
+		options.push(replayOption);
+
+		var bestTimesOption = new FlxText();
+		bestTimesOption.text = "Best Times";
+		bestTimesOption.size = textSize;
+		options.push(bestTimesOption);
+
+		//menu = new OptionList(0, 0, FlxG.width / 2, FlxG.height * 0.7);
+		menu = new OptionList(0, 0, FlxG.width, FlxG.height);
+		menu.screenCenter();
 		menu.setOptions(options, optionSelected);
 		add(menu);
 	}

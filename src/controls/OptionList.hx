@@ -6,10 +6,16 @@ import flixel.addons.ui.FlxUIGroup;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.system.FlxSound;
 import flixel.text.FlxText;
+import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
 
-class OptionList extends FlxUIGroup
+class OptionList extends FlxTypedGroup<FlxSprite>
 {
+	var x:Float;
+	var y:Float;
+	var width:Float;
+	var height:Float;
+
 	var options:Array<FlxSprite>;
 	var selectCallback:FlxSprite->Void;
 
@@ -17,12 +23,28 @@ class OptionList extends FlxUIGroup
 	var sndSelect:FlxSound;
 	var selectedIndex:Int;
 
-	public function new()
+	public function new(?X:Float=0, ?Y:Float=0, ?Width:Float=0, ?Height:Float=0)
 	{
 		super();
-		
+		x = X;
+		y = Y;
+		width = Width;
+		height = Height;
+
+		selectedIndex = 0;
 		createPointer();
 		createSounds();
+	}
+
+	public function screenCenter(?axes:FlxAxes)
+	{
+		if (axes == null)
+			axes = FlxAxes.XY;
+
+		if (axes != FlxAxes.Y)
+			x = (FlxG.width / 2) - (width / 2);
+		if (axes != FlxAxes.X)
+			y = (FlxG.height / 2) - (height / 2);
 	}
 
 	public function setOptions(options:Array<FlxSprite>, selectCallback:FlxSprite->Void)
@@ -30,7 +52,7 @@ class OptionList extends FlxUIGroup
 		this.options = options;
 		this.selectCallback = selectCallback;
 		placeOptions();
-		initSelection();
+		placePointer();
 	}
 
 	function createPointer()
@@ -46,20 +68,33 @@ class OptionList extends FlxUIGroup
 		sndSelect = FlxG.sound.load(AssetPaths.select__wav);
 	}
 
-	function initSelection()
-	{
-		selectedIndex = 0;
-		pointer.y = options[0].y + (options[0].height / 2) - 8;
-	}
-
 	function placeOptions()
 	{
+		var margin = 10;
+		var currentY:Float = y;
+		var optionsX:Float = getOptionsXPosition();
 		for (option in options)
 		{
 			option.scrollFactor.set();
-			//option.screenCenter();
+			option.x = optionsX;
+			option.y = currentY;
+			currentY += option.height + margin;
 			add(option);
 		}
+	}
+
+	function getOptionsXPosition()
+	{
+		var maxOptionWidth:Float = 0;
+		for (option in options)
+		{
+			if (option.width > maxOptionWidth)
+			{
+				maxOptionWidth = option.width;
+			}
+		}
+
+		return x + (width / 2) - (maxOptionWidth / 2);
 	}
 
 	override public function update(elapsed:Float):Void
@@ -89,19 +124,26 @@ class OptionList extends FlxUIGroup
 			{
 				case PointerMove.UP:
 					if (selectedIndex == 0)
-						selectedIndex = 1;
+						selectedIndex = options.length - 1;
 					else
 						selectedIndex--;
 				case PointerMove.DOWN:
-					if (selectedIndex == 1)
+					if (selectedIndex == options.length - 1)
 						selectedIndex = 0;
 					else
 						selectedIndex++;
 			}
 
 			sndSelect.play();
-			pointer.y = options[selectedIndex].y + (options[selectedIndex].height / 2) - 8;
+			placePointer();
 		}
+	}
+
+	function placePointer()
+	{
+		var option = options[selectedIndex];
+		pointer.x = option.x - pointer.width - 20;
+		pointer.y = option.y + (option.height / 2) - 8;
 	}
 
 	function executeSelection()
