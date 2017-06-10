@@ -176,9 +176,3 @@ class InGameMenu extends FlxTypedGroup<FlxSprite>
 		visible = !visible;
 	}
 }
-
-enum PointerMove
-{
-	UP;
-	DOWN;
-}

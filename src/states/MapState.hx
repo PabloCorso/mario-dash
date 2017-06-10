@@ -1,15 +1,40 @@
 package states;
+import controls.OptionList;
 import flixel.FlxG;
+import flixel.FlxObject;
+import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.text.FlxText;
+import flixel.util.FlxColor;
 
 class MapState  extends FlxState
 {
 	var mapId:String;
+	var menu:OptionList;
 
 	public function new(mapId:String)
 	{
-		this.mapId = mapId;
 		super();
+		this.mapId = mapId;
+
+		drawMenu();
+	}
+
+	function drawMenu()
+	{
+		var options = new Array<FlxSprite>();
+		
+		var playAgainOption = new FlxText(0, 0, 0, "Play again");
+		options.push(playAgainOption);
+
+		menu = new OptionList();
+		menu.setOptions(options, optionSelected);
+		add(menu);
+	}
+
+	function optionSelected(option:FlxSprite):Void
+	{
+		FlxG.switchState(new GameState(mapId));
 	}
 
 	override public function update(elapsed:Float):Void
@@ -18,16 +43,7 @@ class MapState  extends FlxState
 
 		if (FlxG.keys.justPressed.ESCAPE)
 		{
-			returnToMenu();
+			FlxG.switchState(new MenuState());
 		}
-		else if (FlxG.keys.justPressed.ENTER)
-		{
-			FlxG.switchState(new GameState(mapId));
-		}
-	}
-
-	function returnToMenu()
-	{
-		FlxG.switchState(new MenuState());
 	}
 }
