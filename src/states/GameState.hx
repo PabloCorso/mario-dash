@@ -20,9 +20,10 @@ class GameState extends FlxState
 	var player:Player;
 	var hud:Hud;
 	var inGameMenu:InGameMenu;
-	
+
 	var coins:FlxTypedGroup<Coin>;
 	var sndCoin:FlxSound;
+	var sndExit:FlxSound;
 
 	public function new(mapId:String)
 	{
@@ -40,7 +41,7 @@ class GameState extends FlxState
 		player = new Player();
 		coins = new FlxTypedGroup<Coin>();
 		sndCoin = FlxG.sound.load(AssetPaths.coin__wav);
-		
+
 		createMap();
 		setCameraBehaviour();
 		createViewControls();
@@ -154,18 +155,14 @@ class GameState extends FlxState
 	{
 		if (true)
 		{
-			finishGame();
+			FlxG.sound.playMusic(AssetPaths.exit__wav, 1, false);
+			returnToMenu();
 		}
 	}
 
 	function deadlyTileCollision(Tile:FlxObject, Particle:FlxObject):Void
 	{
 		renewGame();
-	}
-
-	function finishGame()
-	{
-		returnToMenu();
 	}
 
 	function returnToMenu()
