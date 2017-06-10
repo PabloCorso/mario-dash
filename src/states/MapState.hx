@@ -22,7 +22,7 @@ class MapState  extends FlxState
 	}
 
 	function drawMenu()
-	{
+	{		
 		var options = new Array<FlxSprite>();
 		var textSize = 16;
 

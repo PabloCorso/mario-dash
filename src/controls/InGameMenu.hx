@@ -1,4 +1,6 @@
 package controls;
+import controls.OptionList;
+import flixel.FlxBasic;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.effects.chainable.FlxEffectSprite;
@@ -8,33 +10,28 @@ import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
+import flixel.util.FlxDestroyUtil.IFlxDestroyable;
 import flixel.util.FlxSpriteUtil;
 import utils.FlxSpriteUtils;
 
-class InGameMenu extends FlxTypedGroup<FlxSprite>
+class InGameMenu extends FlxTypedGroup<FlxBasic>
 {
 	static inline var resume = "Resume";
 	static inline var quit = "Quit";
-	
+
 	public var requestedQuit:Bool;
 
 	var sprBack:FlxSprite;
 	var sprBackHeader:FlxSprite;
 	var sprBackBody:FlxSprite;
 	var txtHeader:FlxText;
-
-	var sndSelect:FlxSound;
-	var selectedIndex:Int;
-	var pointer:FlxSprite;
-	var choices:Array<FlxText>;
+	var menu:OptionList;
 
 	public function new()
 	{
 		super();
 
 		drawMenu();
-
-		selectedIndex = 0;
 		active = false;
 		visible = false;
 	}
@@ -44,12 +41,6 @@ class InGameMenu extends FlxTypedGroup<FlxSprite>
 		drawBackground();
 		drawHeader();
 		drawOptions();
-		initSounds();
-	}
-
-	function initSounds()
-	{
-		sndSelect = FlxG.sound.load(AssetPaths.select__wav);
 	}
 
 	function drawBackground()
@@ -87,77 +78,29 @@ class InGameMenu extends FlxTypedGroup<FlxSprite>
 
 	function drawOptions()
 	{
-		pointer = new FlxSprite();
-		pointer.scrollFactor.set();
-		pointer.loadGraphic(AssetPaths.pointer__png);
-		pointer.x = sprBack.x + 20;
-		add(pointer);
-
+		var options = new Array<FlxSprite>();
 		var textSize = 16;
-		choices = new Array<FlxText>();
 
-		var optionsX = pointer.x + pointer.width + 20;
 		var resumeOption = new FlxText();
-		resumeOption.scrollFactor.set();
 		resumeOption.text = resume;
 		resumeOption.size = textSize;
-		resumeOption.x = optionsX;
-		resumeOption.y = sprBackBody.y + 20;
-		choices.push(resumeOption);
+		options.push(resumeOption);
 
 		var quitOption = new FlxText();
-		quitOption.scrollFactor.set();
 		quitOption.text = quit;
 		quitOption.size = textSize;
-		quitOption.x = optionsX;
-		quitOption.y = resumeOption.y + textSize + 20;
-		choices.push(quitOption);
+		options.push(quitOption);
 
-		add(choices[0]);
-		add(choices[1]);
-
-		pointer.y = choices[0].y + (choices[0].height / 2) - 8;
+		menu = new OptionList(sprBackBody.x, sprBackBody.y + 20, sprBack.width, sprBack.height);
+		menu.setOptions(options, optionSelected);
+		add(menu);
 	}
 
-	override public function update(elapsed:Float):Void
+	function optionSelected(option:FlxSprite):Void
 	{
-		if (FlxG.keys.justPressed.ENTER)
+		var txtOption:FlxText = cast option;
+		switch (txtOption.text)
 		{
-			executeSelection();
-		}
-		else if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN)
-		{
-			var move = FlxG.keys.justPressed.UP ? PointerMove.UP : PointerMove.DOWN;
-			movePointer(move);
-		}
-
-		super.update(elapsed);
-	}
-
-	private function movePointer(pointerMove:PointerMove):Void
-	{
-		switch (pointerMove)
-		{
-			case PointerMove.UP:
-				if (selectedIndex == 0)
-					selectedIndex = 1;
-				else
-					selectedIndex--;
-			case PointerMove.DOWN:
-				if (selectedIndex == 1)
-					selectedIndex = 0;
-				else
-					selectedIndex++;
-		}
-
-		sndSelect.play();
-		pointer.y = choices[selectedIndex].y + (choices[selectedIndex].height / 2) - 8;
-	}
-
-	function executeSelection()
-	{
-		var selectedOption = choices[selectedIndex].text;
-		switch(selectedOption){
 			case resume:
 				toggle();
 			case quit:
