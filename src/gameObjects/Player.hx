@@ -71,7 +71,7 @@ class Player extends FlxSprite
 			isJumping = true;
 		}
 
-		if (isJumping && isPressingJumpKey() && !reachedMaxJumpHeight())
+		if (keepJumping())
 		{
 			jumpCounter += elapsed * 1000;
 			velocity.y = velocityY;
@@ -81,6 +81,14 @@ class Player extends FlxSprite
 			isJumping = false;
 			jumpCounter = 0;
 		}
+	}
+
+	function keepJumping()
+	{
+		return isJumping
+			   && isPressingJumpKey()
+			   && !reachedMaxJumpHeight()
+			   && !isTouching(FlxObject.CEILING);
 	}
 
 	function reachedMaxJumpHeight()
