@@ -15,6 +15,8 @@ class MenuState extends FlxState
 {
 	static inline var mapsFilePath:String = "assets/maps/maps.json";
 
+	var title:FlxText;
+
 	public function new()
 	{
 		super();
@@ -22,9 +24,9 @@ class MenuState extends FlxState
 
 	override public function create():Void
 	{
-		var title = new FlxText(0, 0, 0, "Mario Dash", 50);
+		title = new FlxText(0, 0, 0, "Mario Dash", 25);
 		title.screenCenter(FlxAxes.X);
-		title.y = 40;
+		title.y = 20;
 		title.setBorderStyle(SHADOW, FlxColor.GRAY, 1, 1);
 		add(title);
 
@@ -45,8 +47,8 @@ class MenuState extends FlxState
 		{
 			var list = new MenuList(maps);
 			list.screenCenter(FlxAxes.X);
-			list.y = 140;
-			list.height = 220;
+			list.y = title.y + title.health + 70;
+			list.height = FlxG.height - list.y - 40;
 			add(list);
 		}
 	}

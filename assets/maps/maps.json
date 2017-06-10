@@ -7,6 +7,26 @@
 	{
 		"id": 2,
 		"title": "Ice chips",
-		"path": "map02"
+		"path": "map01"
+	},
+	{
+		"id": 3,
+		"title": "Coinless",
+		"path": "map01"
+	},
+	{
+		"id": 4,
+		"title": "Free Fall",
+		"path": "map01"
+	},
+	{
+		"id": 5,
+		"title": "Bumpy",
+		"path": "map01"
+	},
+	{
+		"id": 6,
+		"title": "Zig Zag",
+		"path": "map01"
 	}
 ]

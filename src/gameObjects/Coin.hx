@@ -18,7 +18,7 @@ class Coin extends FlxSprite
 
 	function loadAnimations()
 	{
-		animation.add(rotate, [1, 2, 3, 4], 5);
+		animation.add(rotate, [0, 1, 2, 3], 5);
 		animation.play(rotate);
 	}
 }

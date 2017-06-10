@@ -21,7 +21,7 @@ class MenuList extends FlxUIList
 		}
 
 		super(0, 0, items);
-		width = buttonWidth + 20;
+		width = buttonWidth;
 		prevButtonOffset.y = -12;
 		spacing = 20;
 	}

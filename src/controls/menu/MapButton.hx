@@ -21,7 +21,6 @@ class MapButton extends MenuButton implements IFlxUIWidget
 	function setControlProperties(Width:Int=100, Height:Int=28)
 	{
 		setGraphicSize(Width, Height);
-		setSize(Width, Height);
 	}
 
 	function getMapText()
