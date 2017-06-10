@@ -98,7 +98,7 @@ class GameState extends FlxState
 		}
 		if (FlxG.keys.justPressed.ESCAPE)
 		{
-			FlxG.switchState(new MapState(mapId));
+			goToMapMenu();
 			return;
 		}
 
@@ -127,7 +127,12 @@ class GameState extends FlxState
 		if (coinsTaken >= totalCoins)
 		{
 			FlxG.sound.playMusic(AssetPaths.exit__wav, 1, false);
-			returnToMenu();
+			goToMapMenu();
 		}
+	}
+
+	function goToMapMenu()
+	{
+		FlxG.switchState(new MapState(mapId));
 	}
 }
