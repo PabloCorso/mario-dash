@@ -20,8 +20,9 @@ class Player extends FlxSprite
 
 	function setPhysics()
 	{
-		maxVelocity.x = 150;
-		acceleration.y = 750;
+		drag.x = 500;
+		maxVelocity.x = 75;
+		acceleration.y = 200;
 	}
 
 	function initializeGraphics()
@@ -42,8 +43,8 @@ class Player extends FlxSprite
 	}
 
 	private static inline var ACCELERATION:Float = 300;
-	private static inline var velocityY:Int = -200;
-	private static inline var maxJump:Float = 500;
+	private static inline var velocityY:Int = -100;
+	private static inline var maxJump:Float = 250;
 	var isJumping:Bool;
 	var jumpCounter: Float = 0;
 	override public function update(elapsed:Float)
@@ -55,7 +56,16 @@ class Player extends FlxSprite
 
 	function movement(elapsed:Float)
 	{
-		acceleration.x = ACCELERATION;
+		acceleration.x = 0;
+		if (FlxG.keys.pressed.LEFT)
+		{
+			acceleration.x = -ACCELERATION;
+		}
+		if (FlxG.keys.pressed.RIGHT)
+		{
+			acceleration.x = ACCELERATION;
+		}
+
 		if (isStartingJump())
 		{
 			isJumping = true;
@@ -80,7 +90,7 @@ class Player extends FlxSprite
 
 	function isPressingJumpKey()
 	{
-		return FlxG.keys.pressed.SPACE;
+		return FlxG.keys.pressed.SPACE || FlxG.keys.pressed.UP;
 	}
 
 	function isStartingJump()

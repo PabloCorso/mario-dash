@@ -8,15 +8,14 @@ class GameMap extends FlxTilemap
 {
 	static inline var mapTilesSize:Int = 16;
 	static inline var startTile:Int = 1;
-	static inline var endTile:Int = 2;
+	static inline var finishTile:Int = 7;
 	public static inline var dieTileRight = 11;
 	public static inline var dieTileLeft = 12;
 	public static inline var dieTileUp = 4;
 	public static inline var dieTileDown = 13;
 
 	var startPoistion:FlxPoint;
-	var endPositionX:Float;
-
+	
 	public function new()
 	{
 		super();
@@ -25,10 +24,9 @@ class GameMap extends FlxTilemap
 	public function load(mapId:String)
 	{
 		var mapData:String = Assets.getText(mapId);
-		loadMapFromCSV(mapData, AssetPaths.newTiles__png, mapTilesSize, mapTilesSize, null, 0, 1, 1);
+		loadMapFromCSV(mapData, AssetPaths.map_tiles3__png, mapTilesSize, mapTilesSize, null, 0, 1, 1);
 
 		setStartPosition();
-		setEndPosition();
 	}
 
 	function setStartPosition()
@@ -40,20 +38,9 @@ class GameMap extends FlxTilemap
 		startPoistion.y -= mapTilesSize;
 	}
 
-	function setEndPosition()
-	{
-		var endTileIndex:Int = getTileIndex(endTile);
-		endPositionX = getTileCoordsByIndex(endTileIndex).x - mapTilesSize*2;
-	}
-
 	public function getStartPoint():FlxPoint
 	{
 		return startPoistion;
-	}
-
-	public function getEndPosition():Float
-	{
-		return endPositionX;
 	}
 
 	function getTileIndex(tile:Int):Int
@@ -72,5 +59,10 @@ class GameMap extends FlxTilemap
 		setTileProperties(dieTileLeft, FlxObject.ANY, playerDeath);
 		setTileProperties(dieTileUp, FlxObject.ANY, playerDeath);
 		setTileProperties(dieTileRight, FlxObject.ANY, playerDeath);
+	}
+
+	public function setFinishTile(playerMayFinish:FlxObject->FlxObject->Void)
+	{
+		setTileProperties(finishTile, FlxObject.ANY, playerMayFinish);
 	}
 }

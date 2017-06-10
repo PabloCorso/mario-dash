@@ -16,6 +16,6 @@ class Main extends Sprite
 	{
 		removeEventListener(Event.ADDED_TO_STAGE, init);
 
-		addChild(new FlxGame(800, 400, MenuState));
+		addChild(new FlxGame(320, 240, MenuState));
 	}
 }

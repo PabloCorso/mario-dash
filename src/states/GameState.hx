@@ -50,7 +50,8 @@ class GameState extends FlxState
 		map = new GameMap();
 		map.load(mapId);
 		add(map);
-		map.setDeadlyTileCollisions(deadlyTileCollision);
+		map.setFinishTile(playerMayFinished);
+		//map.setDeadlyTileCollisions(deadlyTileCollision);
 	}
 
 	function setCameraBehaviour()
@@ -88,7 +89,7 @@ class GameState extends FlxState
 		{
 			toggleInGameMenu();
 		}
-		else if (isRequestingRenew() || isPlayerFallingOut())
+		else if (isRequestingRenew())
 		{
 			renewGame();
 		}
@@ -99,11 +100,6 @@ class GameState extends FlxState
 		if (inGameMenu.requestedQuit)
 		{
 			returnToMenu();
-			return;
-		}
-		if (playerFinished())
-		{
-			finishGame();
 			return;
 		}
 
@@ -126,11 +122,6 @@ class GameState extends FlxState
 		return FlxG.keys.justPressed.R;
 	}
 
-	function isPlayerFallingOut()
-	{
-		return player.y > FlxG.height;
-	}
-
 	function finishGame()
 	{
 		returnToMenu();
@@ -141,9 +132,12 @@ class GameState extends FlxState
 		FlxG.switchState(new MenuState());
 	}
 
-	function playerFinished()
+	function playerMayFinished(Tile:FlxObject, Particle:FlxObject)
 	{
-		return player.x >= map.getEndPosition();
+		if (true)
+		{
+			finishGame();
+		}
 	}
 
 	function deadlyTileCollision(Tile:FlxObject, Particle:FlxObject):Void
