@@ -3,19 +3,23 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup;
+import flixel.system.FlxSound;
 
 class Player extends FlxSprite
 {
-	private static inline var run:String = "run";
-	private static inline var stand:String = "stand";
-	private static inline var jump:String = "jump";
-	private static inline var fall:String = "fall";
+	static inline var run:String = "run";
+	static inline var stand:String = "stand";
+	static inline var jump:String = "jump";
+	static inline var fall:String = "fall";
+
+	var sndJump:FlxSound;
 
 	public function new()
 	{
 		super();
 		initializeGraphics();
 		setPhysics();
+		sndJump = FlxG.sound.load(AssetPaths.jump__wav);
 	}
 
 	function setPhysics()
@@ -69,6 +73,7 @@ class Player extends FlxSprite
 		if (isStartingJump())
 		{
 			isJumping = true;
+			sndJump.play(true);
 		}
 
 		if (keepJumping())
