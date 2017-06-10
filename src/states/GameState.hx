@@ -35,34 +35,29 @@ class GameState extends FlxState
 
 	override public function create():Void
 	{
-		startNewGame();
-	}
-
-	function startNewGame()
-	{
 		player = new Player();
 		coins = new FlxTypedGroup<Coin>();
 		sndCoin = FlxG.sound.load(AssetPaths.coin__wav);
+		inGameMenu = new InGameMenu();
+		hud = new Hud();
 
 		createMap();
 		setCameraBehaviour();
-		createViewControls();
-		renewGame();
-	}
+		map.setEntities(placeEntities);
 
-	function createViewControls()
-	{
-		hud = new Hud();
+		add(player);
+		add(coins);
+		add(map);
+		add(inGameMenu);
 		add(hud);
 
-		inGameMenu = new InGameMenu();
+		hud.startTimer();
 	}
 
 	function createMap()
 	{
 		map = new GameMap();
 		map.load(mapId);
-		add(map);
 		map.setFinishTile(playerMayFinished);
 		//map.setDeadlyTileCollisions(deadlyTileCollision);
 	}
@@ -86,32 +81,11 @@ class GameState extends FlxState
 		FlxG.worldBounds.set(0, 0, map.width, map.height);
 	}
 
-	function renewGame()
-	{
-		clearCurrentGame();
-		add(player);
-		map.setEntities(placeEntities);
-		add(coins);
-		add(inGameMenu);
-		hud.resetTimer();
-	}
-
-	function clearCurrentGame()
-	{
-		remove(player);
-		remove(inGameMenu);
-		remove(coins);
-	}
-
 	override public function update(elapsed:Float):Void
 	{
 		if (isRequestingInGameMenuToggle())
 		{
 			toggleInGameMenu();
-		}
-		else if (isRequestingRenew())
-		{
-			renewGame();
 		}
 
 		player.moves = !inGameMenu.visible;
@@ -165,7 +139,6 @@ class GameState extends FlxState
 
 	function deadlyTileCollision(Tile:FlxObject, Particle:FlxObject):Void
 	{
-		renewGame();
 	}
 
 	function returnToMenu()

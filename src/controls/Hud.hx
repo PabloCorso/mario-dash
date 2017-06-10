@@ -23,8 +23,6 @@ class Hud extends FlxTypedGroup<FlxSprite>
 
 		txtTimer = new FlxText();
 		txtTimer.size = textSize;
-		//txtTimer.text = "0:00";
-		//txtTimer.setPosition(FlxG.width - txtTimer.width / 2 - sidesMargin, topMargin);
 		add(txtTimer);
 
 		setHudElementsFixedBehaviour();
@@ -38,7 +36,7 @@ class Hud extends FlxTypedGroup<FlxSprite>
 		});
 	}
 
-	public function resetTimer()
+	public function startTimer()
 	{
 		timePassed = 0;
 	}
