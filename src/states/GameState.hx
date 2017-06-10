@@ -22,6 +22,8 @@ class GameState extends FlxState
 	var inGameMenu:InGameMenu;
 
 	var coins:FlxTypedGroup<Coin>;
+	var coinsTaken:Int;
+	var totalCoins:Int;
 	var sndCoin:FlxSound;
 	var sndExit:FlxSound;
 
@@ -73,6 +75,7 @@ class GameState extends FlxState
 				player.setPosition(position.x, position.y);
 			case EntityType.Coin:
 				coins.add(new Coin(position.x, position.y));
+				totalCoins++;
 		}
 	}
 
@@ -145,7 +148,7 @@ class GameState extends FlxState
 		if (coin.alive && coin.exists)
 		{
 			sndCoin.play(true);
-			//_money++;
+			coinsTaken++;
 			//_hud.updateHUD(_health, _money);
 			coin.kill();
 		}
@@ -153,7 +156,7 @@ class GameState extends FlxState
 
 	function playerMayFinished(Tile:FlxObject, Particle:FlxObject)
 	{
-		if (true)
+		if (coinsTaken >= totalCoins)
 		{
 			FlxG.sound.playMusic(AssetPaths.exit__wav, 1, false);
 			returnToMenu();
