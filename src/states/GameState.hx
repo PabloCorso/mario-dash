@@ -67,7 +67,6 @@ class GameState extends FlxState
 		setPlayerAtStart();
 		add(player);
 		add(inGameMenu);
-		hud.addTry();
 		hud.resetTimer();
 	}
 
@@ -122,16 +121,6 @@ class GameState extends FlxState
 		return FlxG.keys.justPressed.R;
 	}
 
-	function finishGame()
-	{
-		returnToMenu();
-	}
-
-	function returnToMenu()
-	{
-		FlxG.switchState(new MenuState());
-	}
-
 	function playerMayFinished(Tile:FlxObject, Particle:FlxObject)
 	{
 		if (true)
@@ -143,5 +132,15 @@ class GameState extends FlxState
 	function deadlyTileCollision(Tile:FlxObject, Particle:FlxObject):Void
 	{
 		renewGame();
+	}
+
+	function finishGame()
+	{
+		returnToMenu();
+	}
+
+	function returnToMenu()
+	{
+		FlxG.switchState(new MenuState());
 	}
 }
