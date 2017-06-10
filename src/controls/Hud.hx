@@ -15,6 +15,7 @@ class Hud extends FlxTypedGroup<FlxSprite>
 
 	var txtTimer:FlxText;
 	var timePassed:Int;
+	var txtMaxWidth:Float = 0;
 
 	public function new()
 	{
@@ -22,8 +23,8 @@ class Hud extends FlxTypedGroup<FlxSprite>
 
 		txtTimer = new FlxText();
 		txtTimer.size = textSize;
-		txtTimer.text = "00:00:00";
-		txtTimer.setPosition(FlxG.width - txtTimer.width/2 - sidesMargin, topMargin);
+		//txtTimer.text = "0:00";
+		//txtTimer.setPosition(FlxG.width - txtTimer.width / 2 - sidesMargin, topMargin);
 		add(txtTimer);
 
 		setHudElementsFixedBehaviour();
@@ -46,7 +47,17 @@ class Hud extends FlxTypedGroup<FlxSprite>
 	{
 		timePassed += cast elapsed * 100000;
 		updateTimerText();
+		updateTimerPosition();
 		super.update(elapsed);
+	}
+
+	function updateTimerPosition()
+	{
+		if (txtMaxWidth < txtTimer.width)
+		{
+			txtMaxWidth =  txtTimer.width;
+			txtTimer.setPosition(FlxG.width - txtTimer.width - sidesMargin, topMargin);
+		}
 	}
 
 	function updateTimerText()
