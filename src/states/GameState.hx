@@ -85,7 +85,7 @@ class GameState extends FlxState
 	{
 		if (isRequestingInGameMenuToggle())
 		{
-			toggleInGameMenu();
+			inGameMenu.toggle();
 		}
 
 		player.moves = !inGameMenu.visible;
@@ -93,17 +93,17 @@ class GameState extends FlxState
 
 		if (inGameMenu.requestedQuit)
 		{
-			returnToMenu();
+			FlxG.switchState(new MenuState());
+			return;
+		}
+		if (FlxG.keys.justPressed.ESCAPE)
+		{
+			FlxG.switchState(new MapState(mapId));
 			return;
 		}
 
 		FlxG.collide(map, player);
 		FlxG.overlap(player, coins, playerTouchCoin);
-	}
-
-	function toggleInGameMenu()
-	{
-		inGameMenu.toggle();
 	}
 
 	function isRequestingInGameMenuToggle()
@@ -112,18 +112,12 @@ class GameState extends FlxState
 			   (player.isTouching(FlxObject.FLOOR) || inGameMenu.visible);
 	}
 
-	function isRequestingRenew()
-	{
-		return FlxG.keys.justPressed.R;
-	}
-
 	private function playerTouchCoin(player:Player, coin:Coin):Void
 	{
 		if (coin.alive && coin.exists)
 		{
 			sndCoin.play(true);
 			coinsTaken++;
-			//_hud.updateHUD(_health, _money);
 			coin.kill();
 		}
 	}
@@ -135,14 +129,5 @@ class GameState extends FlxState
 			FlxG.sound.playMusic(AssetPaths.exit__wav, 1, false);
 			returnToMenu();
 		}
-	}
-
-	function deadlyTileCollision(Tile:FlxObject, Particle:FlxObject):Void
-	{
-	}
-
-	function returnToMenu()
-	{
-		FlxG.switchState(new MenuState());
 	}
 }
