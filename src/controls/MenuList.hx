@@ -11,14 +11,18 @@ import flixel.util.FlxColor;
 
 class MenuList extends FlxTypedGroup<FlxSprite>
 {
+	private static inline var spacing = 10;
+			
 	var x:Float;
 	var y:Float;
 	var width:Float;
 	var height:Float;
 
 	var options:Array<FlxSprite>;
-	var visibleOptions:Array<FlxSprite>;
 	var selectCallback:FlxSprite->Void;
+
+	var visibleOptions:Array<FlxSprite>;
+	var optionsX:Float;
 
 	var pointer:FlxSprite;
 	var sndSelect:FlxSound;
@@ -55,6 +59,8 @@ class MenuList extends FlxTypedGroup<FlxSprite>
 	{
 		this.options = options;
 		this.selectCallback = selectCallback;
+		
+		optionsX = getOptionsXPosition();
 		placeOptions();
 		placePointer();
 	}
@@ -74,15 +80,13 @@ class MenuList extends FlxTypedGroup<FlxSprite>
 
 	function placeOptions()
 	{
-		var margin = 10;
 		var currentY:Float = y;
-		var optionsX:Float = getOptionsXPosition();
 		for (option in options)
 		{
 			option.scrollFactor.set();
 			option.x = optionsX;
 			option.y = currentY;
-			currentY += option.height + margin;
+			currentY += option.height + spacing;
 			add(option);
 		}
 	}
