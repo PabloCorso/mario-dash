@@ -8,13 +8,10 @@ class GameMap extends FlxTilemap
 {
 	static inline var mapTilesSize:Int = 16;
 	static inline var startTile:Int = 1;
-	static inline var exitTile:Int = 7;
 	static inline var coinTile:Int = 2;
+	static inline var exitTile:Int = 3;
 
-	static inline var dieTileRight = 11;
-	static inline var dieTileLeft = 12;
-	static inline var dieTileUp = 4;
-	static inline var dieTileDown = 13;
+	var deadlyTiles = [46,47,48,49,51];
 
 	public function new()
 	{
@@ -24,7 +21,7 @@ class GameMap extends FlxTilemap
 	public function load(mapId:String)
 	{
 		var mapData:String = Assets.getText(mapId);
-		loadMapFromCSV(mapData, AssetPaths.map_tiles__png, mapTilesSize, mapTilesSize, null, 0, 1, 1);
+		loadMapFromCSV(mapData, AssetPaths.map_tiles__png, mapTilesSize, mapTilesSize, null, 0, 1, 30);
 	}
 
 	public function setEntities(EntityLoadCallback:EntityType->FlxPoint->Void, EntityLayer:String = "entities"):Void
@@ -70,13 +67,13 @@ class GameMap extends FlxTilemap
 		}
 	}
 
-	public function setDeadlyTileCollisions(playerDeath:FlxObject->FlxObject->Void)
-	{
-		setTileProperties(dieTileDown, FlxObject.ANY, playerDeath);
-		setTileProperties(dieTileLeft, FlxObject.ANY, playerDeath);
-		setTileProperties(dieTileUp, FlxObject.ANY, playerDeath);
-		setTileProperties(dieTileRight, FlxObject.ANY, playerDeath);
-	}
+	//public function setDeadlyTileCollisions(playerDeath:FlxObject->FlxObject->Void)
+	//{
+		//setTileProperties(dieTileDown, FlxObject.ANY, playerDeath);
+		//setTileProperties(dieTileLeft, FlxObject.ANY, playerDeath);
+		//setTileProperties(dieTileUp, FlxObject.ANY, playerDeath);
+		//setTileProperties(dieTileRight, FlxObject.ANY, playerDeath);
+	//}
 
 	public function setFinishTile(playerMayFinish:FlxObject->FlxObject->Void)
 	{

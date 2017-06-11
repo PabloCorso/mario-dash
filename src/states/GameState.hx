@@ -45,9 +45,9 @@ class GameState extends FlxState
 		setCameraBehaviour();
 		map.setEntities(placeEntities);
 
-		add(player);
 		add(coins);
 		add(map);
+		add(player);
 		add(inGameMenu);
 		add(hud);
 
