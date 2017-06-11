@@ -22,6 +22,7 @@ class MenuState extends FlxState
 	public function new()
 	{
 		super();
+		FlxG.mouse.visible = false;
 	}
 
 	override public function create():Void

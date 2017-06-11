@@ -1,4 +1,5 @@
 package ;
+import flixel.FlxG;
 import flixel.FlxGame;
 import openfl.display.Sprite;
 import openfl.events.Event;
