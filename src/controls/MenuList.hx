@@ -135,8 +135,8 @@ class MenuList extends FlxTypedGroup<FlxSprite>
 		{
 			selectedIndex = 0;
 		}
-		else{
-
+		else
+		{
 			switch (pointerMove)
 			{
 				case PointerMove.UP:
@@ -149,6 +149,19 @@ class MenuList extends FlxTypedGroup<FlxSprite>
 						selectedIndex = 0;
 					else
 						selectedIndex++;
+			}
+
+			if (selectedIndex < minVisibleIndex)
+			{
+				minVisibleIndex--;
+				maxVisibleIndex--;
+				placeOptions();
+			}
+			else if (selectedIndex > maxVisibleIndex)
+			{
+				minVisibleIndex++;
+				maxVisibleIndex++;
+				placeOptions();
 			}
 
 			sndSelect.play();
