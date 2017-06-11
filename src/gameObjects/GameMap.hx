@@ -57,7 +57,7 @@ class GameMap extends FlxTilemap
 	function getTilePositionByIndex(tileIndex:Int):FlxPoint
 	{
 		var position = getTileCoordsByIndex(tileIndex);
-		position.x -= mapTilesSize/4;
+		position.x -= mapTilesSize/2;
 		position.y -= mapTilesSize/2;
 		return position;
 	}
