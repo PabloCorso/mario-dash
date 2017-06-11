@@ -17,6 +17,7 @@ class MenuList extends FlxTypedGroup<FlxSprite>
 	var height:Float;
 
 	var options:Array<FlxSprite>;
+	var visibleOptions:Array<FlxSprite>;
 	var selectCallback:FlxSprite->Void;
 
 	var pointer:FlxSprite;
@@ -36,6 +37,9 @@ class MenuList extends FlxTypedGroup<FlxSprite>
 		createSounds();
 	}
 
+	/**
+	 * Edits same x and y that are passed on creation. Use before setting options.
+	 */
 	public function screenCenter(?axes:FlxAxes)
 	{
 		if (axes == null)
