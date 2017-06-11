@@ -91,7 +91,7 @@ class GameState extends FlxState
 		}
 
 		player.moves = !inGameMenu.visible;
-		hud.isPaused = inGameMenu.visible;
+		hud.togglePause(inGameMenu.visible);
 		super.update(elapsed);
 
 		if (inGameMenu.requestedQuit)
