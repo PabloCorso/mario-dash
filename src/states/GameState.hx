@@ -52,8 +52,8 @@ class GameState extends FlxState
 		add(hud);
 
 		hud.startTimer();
-		
-		hud.setBestTime(23 * 60 + 48);
+
+		hud.setBestTime(13.78);
 	}
 
 	function createMap()
@@ -85,12 +85,13 @@ class GameState extends FlxState
 
 	override public function update(elapsed:Float):Void
 	{
-		if (isRequestingInGameMenuToggle())
+		if (isPressingPause())
 		{
 			inGameMenu.toggle();
 		}
 
 		player.moves = !inGameMenu.visible;
+		hud.isPaused = inGameMenu.visible;
 		super.update(elapsed);
 
 		if (inGameMenu.requestedQuit)
@@ -108,7 +109,7 @@ class GameState extends FlxState
 		FlxG.overlap(player, coins, playerTouchCoin);
 	}
 
-	function isRequestingInGameMenuToggle()
+	function isPressingPause()
 	{
 		return FlxG.keys.justPressed.P &&
 			   (player.isTouching(FlxObject.FLOOR) || inGameMenu.visible);
