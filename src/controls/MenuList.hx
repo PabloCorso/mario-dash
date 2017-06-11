@@ -153,14 +153,18 @@ class MenuList extends FlxTypedGroup<FlxSprite>
 
 			if (selectedIndex < minVisibleIndex)
 			{
-				minVisibleIndex--;
-				maxVisibleIndex--;
+				if (selectedIndex == 0)
+					minVisibleIndex = 0;
+				else
+					minVisibleIndex--;
 				placeOptions();
 			}
 			else if (selectedIndex > maxVisibleIndex)
 			{
-				minVisibleIndex++;
-				maxVisibleIndex++;
+				if (selectedIndex == options.length - 1)
+					minVisibleIndex = options.length - 1 - (maxVisibleIndex - minVisibleIndex);
+				else
+					minVisibleIndex++;
 				placeOptions();
 			}
 
