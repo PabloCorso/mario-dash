@@ -93,6 +93,7 @@ class InGameMenu extends FlxTypedGroup<FlxBasic>
 
 		menu = new MenuList(sprBackBody.x, sprBackBody.y + 20, sprBack.width, sprBack.height);
 		menu.setOptions(options, optionSelected);
+		menu.setPointerSound(FlxG.sound.load(AssetPaths.select__wav));
 		add(menu);
 	}
 

@@ -26,9 +26,9 @@ class MenuList extends FlxTypedGroup<FlxSprite>
 	var maxVisibleIndex:Int;
 	var optionsX:Float;
 
-	var pointer:FlxSprite;
-	var sndSelect:FlxSound;
 	var selectedIndex:Int;
+	var pointer:FlxSprite;
+	var sndPointer:FlxSound;
 
 	public function new(?X:Float=0, ?Y:Float=0, ?Width:Float=0, ?Height:Float=0)
 	{
@@ -41,7 +41,6 @@ class MenuList extends FlxTypedGroup<FlxSprite>
 		selectedIndex = 0;
 		pointer = new Pointer();
 		add(pointer);
-		sndSelect = FlxG.sound.load(AssetPaths.select__wav);
 	}
 
 	/**
@@ -66,6 +65,11 @@ class MenuList extends FlxTypedGroup<FlxSprite>
 		optionsX = getOptionsXPosition();
 		placeOptions();
 		placePointer();
+	}
+
+	public function setPointerSound(sound:FlxSound)
+	{
+		sndPointer = sound;
 	}
 
 	function placeOptions()
@@ -168,7 +172,7 @@ class MenuList extends FlxTypedGroup<FlxSprite>
 				placeOptions();
 			}
 
-			sndSelect.play();
+			if (sndPointer != null) sndPointer.play();
 			placePointer();
 		}
 	}
