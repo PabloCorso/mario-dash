@@ -14,7 +14,7 @@ class Hud extends FlxTypedGroup<FlxSprite>
 	static inline var topMargin:Int = 8;
 
 	var txtTimer:FlxText;
-	var timePassed:Int;
+	var timePassed:Float;
 	var txtMaxWidth:Float = 0;
 
 	public function new()
@@ -22,18 +22,19 @@ class Hud extends FlxTypedGroup<FlxSprite>
 		super();
 
 		txtTimer = new FlxText();
+		txtTimer.scrollFactor.set();
 		txtTimer.size = textSize;
 		add(txtTimer);
-
-		setHudElementsFixedBehaviour();
 	}
 
-	function setHudElementsFixedBehaviour()
+	public function setBestTime(bestTime:Int)
 	{
-		forEach(function(spr:FlxSprite)
-		{
-			spr.scrollFactor.set(0, 0);
-		});
+		var txtBestTime = new FlxText();
+		txtBestTime.scrollFactor.set();
+		txtBestTime.size = textSize;
+		txtBestTime.text = getTimeDisplay(bestTime);
+		txtBestTime.setPosition(sidesMargin, topMargin);
+		add(txtBestTime);
 	}
 
 	public function startTimer()
@@ -43,8 +44,8 @@ class Hud extends FlxTypedGroup<FlxSprite>
 
 	override public function update(elapsed:Float):Void
 	{
-		timePassed += cast elapsed * 100000;
-		updateTimerText();
+		timePassed += elapsed;
+		txtTimer.text = getTimeDisplay(timePassed);
 		updateTimerPosition();
 		super.update(elapsed);
 	}
@@ -58,16 +59,16 @@ class Hud extends FlxTypedGroup<FlxSprite>
 		}
 	}
 
-	function updateTimerText()
+	function getTimeDisplay(time:Float)
 	{
-		var seconds:Int = cast (timePassed / 1000) % 60;
-		var minutes:Int = cast ((timePassed / (1000*60)) % 60);
-		var hours:Int   = cast ((timePassed / (1000*60*60)) % 24);
+		var seconds:Int = cast (time) % 60;
+		var minutes:Int = cast ((time / (60)) % 60);
+		var hours:Int   = cast ((time / (60*60)) % 24);
 
 		var hoursText = hours == 0 ? "" : hours + ":";
 		var minsText = hours > 0 && minutes < 10 ? "0" + minutes : "" + minutes;
 		var secsText = seconds < 10 ? "0" + seconds : "" + seconds;
 
-		txtTimer.text = hoursText + minsText + ":" + secsText;
+		return hoursText + minsText + ":" + secsText;
 	}
 }

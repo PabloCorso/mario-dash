@@ -52,6 +52,8 @@ class GameState extends FlxState
 		add(hud);
 
 		hud.startTimer();
+		
+		hud.setBestTime(23 * 60 + 48);
 	}
 
 	function createMap()
