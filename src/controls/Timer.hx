@@ -26,4 +26,9 @@ class Timer extends TimerText
 		}
 		super.update(elapsed);
 	}
+	
+	public function getTime() 
+	{
+		return timePassed;
+	}
 }

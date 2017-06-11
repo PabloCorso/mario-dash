@@ -52,6 +52,11 @@ class Hud extends FlxTypedGroup<FlxSprite>
 
 		super.update(elapsed);
 	}
+	
+	public function getSeconds() 
+	{
+		return timer.getTime();
+	}
 
 	function updateTimerPosition()
 	{

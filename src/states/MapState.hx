@@ -1,4 +1,5 @@
 package states;
+import controls.TimerText;
 import controls.menu.MenuList;
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -9,39 +10,64 @@ import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
 import gameObjects.MapData;
 
-class MapState  extends FlxState
+class MapState extends FlxState
 {
+	static inline var textSize:Int = 16;
+	static inline var unfinishedText:String = "You failed to finish!";
+
 	static inline var playAgain = "Play again";
 	static inline var replay = "Replay";
 	static inline var bestTimes = "Best times";
 
 	var mapData:MapData;
-	var menu:MenuList;
-	var txtHeader:FlxText;
+	var finished:Bool;
+	var seconds:Float;
 
-	public function new(mapData:MapData)
+	public function new(mapData:MapData, finished:Bool, seconds:Float)
 	{
 		super();
 		this.mapData = mapData;
+		this.finished = finished;
+		this.seconds = seconds;
 
 		drawHeader();
 		drawMenu();
+		drawFinishInfo();
 	}
 
 	function drawHeader()
 	{
-		txtHeader = new FlxText();
-		txtHeader.size = 18;
+		var txtHeader = new FlxText();
+		txtHeader.size = textSize;
 		txtHeader.text = "Level " + mapData.id + ": " + mapData.title;
 		txtHeader.screenCenter(FlxAxes.X);
 		txtHeader.y = 20;
 		add(txtHeader);
 	}
 
+	function drawFinishInfo()
+	{
+		var txtFinishInfo:FlxText;
+		if (finished)
+		{
+			txtFinishInfo = new TimerText(seconds);
+		}
+		else
+		{
+			txtFinishInfo = new FlxText();
+			txtFinishInfo.text = unfinishedText;
+		}
+
+		txtFinishInfo.size = textSize;
+		txtFinishInfo.screenCenter(FlxAxes.X);
+		txtFinishInfo.y = FlxG.height - txtFinishInfo.height - 20;
+		add(txtFinishInfo);
+	}
+
 	function drawMenu()
 	{
 		var options = new Array<FlxSprite>();
-		var textSize = 16;
+		var textSize = textSize;
 
 		var playAgainOption = new FlxText();
 		playAgainOption.text = playAgain;
@@ -58,7 +84,7 @@ class MapState  extends FlxState
 		bestTimesOption.size = textSize;
 		options.push(bestTimesOption);
 
-		menu = new MenuList(0, FlxG.height*0.3, FlxG.width, FlxG.height*0.5);
+		var menu = new MenuList(0, FlxG.height*0.3, FlxG.width, FlxG.height*0.5);
 		menu.screenCenter(FlxAxes.X);
 		menu.setOptions(options, optionSelected);
 		add(menu);

@@ -27,7 +27,9 @@ class GameState extends FlxState
 	var coinsTaken:Int;
 	var totalCoins:Int;
 	var sndCoin:FlxSound;
+	
 	var sndExit:FlxSound;
+	var finished:Bool;
 
 	public function new(mapData:MapData)
 	{
@@ -132,6 +134,7 @@ class GameState extends FlxState
 		if (coinsTaken >= totalCoins)
 		{
 			FlxG.sound.playMusic(AssetPaths.exit__wav, 1, false);
+			finished = true;
 			goToMapMenu();
 		}
 	}
@@ -143,6 +146,7 @@ class GameState extends FlxState
 
 	function goToMapMenu()
 	{
-		FlxG.switchState(new MapState(mapData));
+		var seconds = hud.getSeconds();
+		FlxG.switchState(new MapState(mapData, finished, seconds));
 	}
 }
