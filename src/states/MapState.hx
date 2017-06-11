@@ -1,5 +1,5 @@
 package states;
-import controls.OptionList;
+import controls.MenuList;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
@@ -15,7 +15,7 @@ class MapState  extends FlxState
 	static inline var bestTimes = "Best times";
 
 	var mapId:String;
-	var menu:OptionList;
+	var menu:MenuList;
 
 	public function new(mapId:String)
 	{
@@ -45,7 +45,7 @@ class MapState  extends FlxState
 		bestTimesOption.size = textSize;
 		options.push(bestTimesOption);
 
-		menu = new OptionList(0, FlxG.height*0.3, FlxG.width, FlxG.height*0.5);
+		menu = new MenuList(0, FlxG.height*0.3, FlxG.width, FlxG.height*0.5);
 		menu.screenCenter(FlxAxes.X);
 		menu.setOptions(options, optionSelected);
 		add(menu);

@@ -1,5 +1,5 @@
 package controls;
-import controls.OptionList;
+import controls.MenuList;
 import flixel.FlxBasic;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -25,7 +25,7 @@ class InGameMenu extends FlxTypedGroup<FlxBasic>
 	var sprBackHeader:FlxSprite;
 	var sprBackBody:FlxSprite;
 	var txtHeader:FlxText;
-	var menu:OptionList;
+	var menu:MenuList;
 
 	public function new()
 	{
@@ -91,7 +91,7 @@ class InGameMenu extends FlxTypedGroup<FlxBasic>
 		quitOption.size = textSize;
 		options.push(quitOption);
 
-		menu = new OptionList(sprBackBody.x, sprBackBody.y + 20, sprBack.width, sprBack.height);
+		menu = new MenuList(sprBackBody.x, sprBackBody.y + 20, sprBack.width, sprBack.height);
 		menu.setOptions(options, optionSelected);
 		add(menu);
 	}

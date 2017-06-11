@@ -9,7 +9,7 @@ import flixel.text.FlxText;
 import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
 
-class OptionList extends FlxTypedGroup<FlxSprite>
+class MenuList extends FlxTypedGroup<FlxSprite>
 {
 	var x:Float;
 	var y:Float;

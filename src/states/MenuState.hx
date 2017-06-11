@@ -1,5 +1,5 @@
 package states ;
-import controls.OptionList;
+import controls.MenuList;
 import controls.MapOption;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -17,7 +17,7 @@ class MenuState extends FlxState
 	static inline var textSize:Int = 16;
 
 	var title:FlxText;
-	var menu:OptionList;
+	var menu:MenuList;
 
 	public function new()
 	{
@@ -49,7 +49,7 @@ class MenuState extends FlxState
 			options.push(option);
 		}
 
-		menu = new OptionList(0, FlxG.height * 0.3, FlxG.width, FlxG.height * 0.5);
+		menu = new MenuList(0, FlxG.height * 0.3, FlxG.width, FlxG.height * 0.5);
 		menu.screenCenter(FlxAxes.X);
 		menu.setOptions(options, optionSelected);
 		add(menu);
