@@ -61,19 +61,19 @@ class GameMap extends FlxTilemap
 
 	function hideTiles(tileIndices:Array<Int>)
 	{
-		for (tileIndex in tileIndices) 
+		for (tileIndex in tileIndices)
 		{
 			setTileByIndex(tileIndex, 0, true);
 		}
 	}
 
-	//public function setDeadlyTileCollisions(playerDeath:FlxObject->FlxObject->Void)
-	//{
-		//setTileProperties(dieTileDown, FlxObject.ANY, playerDeath);
-		//setTileProperties(dieTileLeft, FlxObject.ANY, playerDeath);
-		//setTileProperties(dieTileUp, FlxObject.ANY, playerDeath);
-		//setTileProperties(dieTileRight, FlxObject.ANY, playerDeath);
-	//}
+	public function setDeadlyTileCollisions(playerDeath:FlxObject->FlxObject->Void)
+	{
+		for (tile in deadlyTiles)
+		{
+			setTileProperties(tile, FlxObject.ANY, playerDeath);
+		}
+	}
 
 	public function setFinishTile(playerMayFinish:FlxObject->FlxObject->Void)
 	{

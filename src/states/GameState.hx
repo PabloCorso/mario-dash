@@ -60,8 +60,8 @@ class GameState extends FlxState
 	{
 		map = new GameMap();
 		map.load(mapId);
-		map.setFinishTile(playerMayFinished);
-		//map.setDeadlyTileCollisions(deadlyTileCollision);
+		map.setFinishTile(playerTouchFinish);
+		map.setDeadlyTileCollisions(playerTouchDeadlyTile);
 	}
 
 	private function placeEntities(type:EntityType, position:FlxPoint):Void
@@ -125,13 +125,18 @@ class GameState extends FlxState
 		}
 	}
 
-	function playerMayFinished(Tile:FlxObject, Particle:FlxObject)
+	function playerTouchFinish(Tile:FlxObject, Particle:FlxObject)
 	{
 		if (coinsTaken >= totalCoins)
 		{
 			FlxG.sound.playMusic(AssetPaths.exit__wav, 1, false);
 			goToMapMenu();
 		}
+	}
+
+	function playerTouchDeadlyTile(Tile:FlxObject, Particle:FlxObject)
+	{
+		goToMapMenu();
 	}
 
 	function goToMapMenu()
