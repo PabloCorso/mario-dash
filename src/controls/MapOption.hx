@@ -16,7 +16,7 @@ class MapOption extends FlxText
 
 	function getMapText()
 	{
-		return mapData.id + " " + mapData.title;
+		return mapData.id + " - " + mapData.title;
 	}
 
 	public function getMapData():MapData

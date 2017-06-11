@@ -106,16 +106,14 @@ class MenuList extends FlxTypedGroup<FlxSprite>
 
 	function getOptionsXPosition()
 	{
-		var maxOptionWidth:Float = 0;
+		var optionsWidthSum:Float = 0;
 		for (option in options)
 		{
-			if (option.width > maxOptionWidth)
-			{
-				maxOptionWidth = option.width;
-			}
+			optionsWidthSum += option.width;
 		}
 
-		return x + (width / 2) - (maxOptionWidth / 2);
+		var average = optionsWidthSum / options.length;
+		return x + (width / 2) - (average / 2);
 	}
 
 	override public function update(elapsed:Float):Void
