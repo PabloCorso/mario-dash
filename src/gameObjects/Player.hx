@@ -12,7 +12,14 @@ class Player extends FlxSprite
 	static inline var jump:String = "jump";
 	static inline var fall:String = "fall";
 
+	static inline var ACCELERATION:Float = 300;
+	static inline var velocityY:Int = -100;
+	static inline var maxJump:Float = 250;
+
+	var isJumping:Bool;
+	var jumpCounter: Float = 0;
 	var sndJump:FlxSound;
+	var prevVelocity:Float;
 
 	public function new()
 	{
@@ -31,26 +38,22 @@ class Player extends FlxSprite
 
 	function initializeGraphics()
 	{
-		loadGraphic(AssetPaths.player__png, true, 16, 16);
+		loadGraphic(AssetPaths.player_new__png, true, 20, 22);
 		loadAnimations();
-		flipX = true;
-		setSize(16, 16);
+		offset.y = 2;
+		width = 14;
+		height = 20;
 	}
 
 	function loadAnimations()
 	{
-		animation.add(run, [2, 3, 4, 5, 6, 7, 8, 9], 30);
-		animation.add(stand, [10]);
-		animation.add(jump, [1]);
-		animation.add(fall, [0]);
+		animation.add(run, [1, 2, 3], 5);
+		animation.add(stand, [0]);
+		animation.add(jump, [6]);
+		animation.add(fall, [5]);
 		animation.play(stand);
 	}
 
-	private static inline var ACCELERATION:Float = 300;
-	private static inline var velocityY:Int = -100;
-	private static inline var maxJump:Float = 250;
-	var isJumping:Bool;
-	var jumpCounter: Float = 0;
 	override public function update(elapsed:Float)
 	{
 		movement(elapsed);
@@ -101,19 +104,23 @@ class Player extends FlxSprite
 		return jumpCounter >= maxJump;
 	}
 
-	function isPressingJumpKey()
-	{
-		return FlxG.keys.pressed.SPACE || FlxG.keys.pressed.UP;
-	}
-
 	function isStartingJump()
 	{
 		return isTouching(FlxObject.FLOOR) && isPressingJumpKey();
 	}
 
+	function isPressingJumpKey()
+	{
+		return FlxG.keys.pressed.SPACE || FlxG.keys.pressed.UP;
+	}
+
 	override function updateAnimation(elapsed:Float)
 	{
-		if (!isTouching(FlxObject.FLOOR))
+		updateOrientation();
+
+		// TODO: velocitiy keeps setting to 3.333 after stand animation,
+		//       and the player looks like he is always falling.
+		if (!isTouching(FlxObject.FLOOR) && Math.abs(velocity.y) > 4)
 		{
 			if (velocity.y > 0)
 			{
@@ -137,5 +144,25 @@ class Player extends FlxSprite
 		}
 
 		super.updateAnimation(elapsed);
+	}
+
+	function updateOrientation()
+	{
+		// TODO: fix is turning.
+		if (velocity.x != 0)
+		{
+			var isTurningLeft = (velocity.x < prevVelocity && FlxG.keys.pressed.LEFT);
+			var isTurningRight = (velocity.x > prevVelocity && FlxG.keys.pressed.RIGHT);
+
+			if (isTurningLeft || velocity.x > 0)
+			{
+				flipX = false;
+			}
+			else if (isTurningRight || velocity.x < 0)
+			{
+				flipX = true;
+			}
+		}
+		prevVelocity = velocity.x;
 	}
 }
