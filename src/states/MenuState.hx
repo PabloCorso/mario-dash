@@ -28,7 +28,7 @@ class MenuState extends FlxState
 	{
 		title = new FlxText(0, 0, 0, "Mario Dash", 25);
 		title.screenCenter(FlxAxes.X);
-		title.y = 20;
+		title.y = 15;
 		title.setBorderStyle(SHADOW, FlxColor.GRAY, 1, 1);
 		add(title);
 
@@ -49,7 +49,8 @@ class MenuState extends FlxState
 			options.push(option);
 		}
 
-		menu = new MenuList(0, FlxG.height * 0.3, FlxG.width, FlxG.height * 0.5);
+		var titleYSpace = title.y + title.height + 15;
+		menu = new MenuList(0, titleYSpace, FlxG.width, FlxG.height - titleYSpace);
 		menu.screenCenter(FlxAxes.X);
 		menu.setOptions(options, optionSelected);
 		add(menu);

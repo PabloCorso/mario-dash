@@ -11,8 +11,9 @@ import flixel.util.FlxColor;
 
 class MenuList extends FlxTypedGroup<FlxSprite>
 {
-	private static inline var spacing = 10;
-			
+	private static inline var spacing:Int = 10;
+	private static inline var pointerMargin:Int = 10;
+
 	var x:Float;
 	var y:Float;
 	var width:Float;
@@ -21,7 +22,8 @@ class MenuList extends FlxTypedGroup<FlxSprite>
 	var options:Array<FlxSprite>;
 	var selectCallback:FlxSprite->Void;
 
-	var visibleOptions:Array<FlxSprite>;
+	var minVisibleIndex:Int;
+	var maxVisibleIndex:Int;
 	var optionsX:Float;
 
 	var pointer:FlxSprite;
@@ -37,8 +39,9 @@ class MenuList extends FlxTypedGroup<FlxSprite>
 		height = Height;
 
 		selectedIndex = 0;
-		createPointer();
-		createSounds();
+		pointer = new Pointer();
+		add(pointer);
+		sndSelect = FlxG.sound.load(AssetPaths.select__wav);
 	}
 
 	/**
@@ -59,35 +62,41 @@ class MenuList extends FlxTypedGroup<FlxSprite>
 	{
 		this.options = options;
 		this.selectCallback = selectCallback;
-		
+
 		optionsX = getOptionsXPosition();
 		placeOptions();
 		placePointer();
 	}
 
-	function createPointer()
-	{
-		pointer = new FlxSprite();
-		pointer.scrollFactor.set();
-		pointer.loadGraphic(AssetPaths.pointer__png);
-		add(pointer);
-	}
-
-	function createSounds()
-	{
-		sndSelect = FlxG.sound.load(AssetPaths.select__wav);
-	}
-
 	function placeOptions()
 	{
+		removeOptions();
+
 		var currentY:Float = y;
+		var i = minVisibleIndex;
+		var canFitMore = true;
+		while (i < options.length && canFitMore)
+		{
+			var option = options[i];
+			canFitMore = currentY + spacing + option.height < y + height;
+			if (canFitMore)
+			{
+				option.scrollFactor.set();
+				option.x = optionsX;
+				option.y = currentY;
+				add(option);
+
+				currentY += option.height + spacing;
+				maxVisibleIndex = i++;
+			}
+		}
+	}
+
+	function removeOptions()
+	{
 		for (option in options)
 		{
-			option.scrollFactor.set();
-			option.x = optionsX;
-			option.y = currentY;
-			currentY += option.height + spacing;
-			add(option);
+			remove(option);
 		}
 	}
 
@@ -150,7 +159,7 @@ class MenuList extends FlxTypedGroup<FlxSprite>
 	function placePointer()
 	{
 		var option = options[selectedIndex];
-		pointer.x = option.x - pointer.width - 20;
+		pointer.x = option.x - pointer.width - pointerMargin;
 		pointer.y = option.y + (option.height / 2) - 8;
 	}
 
