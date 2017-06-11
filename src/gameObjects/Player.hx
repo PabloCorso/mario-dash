@@ -19,7 +19,6 @@ class Player extends FlxSprite
 	var isJumping:Bool;
 	var jumpCounter: Float = 0;
 	var sndJump:FlxSound;
-	var prevVelocity:Float;
 
 	public function new()
 	{
@@ -38,19 +37,18 @@ class Player extends FlxSprite
 
 	function initializeGraphics()
 	{
-		loadGraphic(AssetPaths.player_new__png, true, 20, 22);
+		loadGraphic(AssetPaths.player__png, true, 16, 16);
 		loadAnimations();
-		offset.y = 2;
 		width = 14;
-		height = 20;
+		height = 16;
 	}
 
 	function loadAnimations()
 	{
-		animation.add(run, [1, 2, 3], 5);
+		animation.add(run, [1, 2, 3], 3);
 		animation.add(stand, [0]);
-		animation.add(jump, [6]);
-		animation.add(fall, [5]);
+		animation.add(jump, [5]);
+		animation.add(fall, [3]);
 		animation.play(stand);
 	}
 
@@ -122,13 +120,13 @@ class Player extends FlxSprite
 		//       and the player looks like he is always falling.
 		if (!isTouching(FlxObject.FLOOR) && Math.abs(velocity.y) > 4)
 		{
-			if (velocity.y > 0)
+			if (velocity.y < 0)
 			{
-				animation.play(fall);
+				animation.play(jump);
 			}
 			else
 			{
-				animation.play(jump);
+				animation.play(fall);
 			}
 		}
 		else
@@ -148,21 +146,16 @@ class Player extends FlxSprite
 
 	function updateOrientation()
 	{
-		// TODO: fix is turning.
 		if (velocity.x != 0)
 		{
-			var isTurningLeft = (velocity.x < prevVelocity && FlxG.keys.pressed.LEFT);
-			var isTurningRight = (velocity.x > prevVelocity && FlxG.keys.pressed.RIGHT);
-
-			if (isTurningLeft || velocity.x > 0)
+			if (velocity.x > 0)
 			{
 				flipX = false;
 			}
-			else if (isTurningRight || velocity.x < 0)
+			else if (velocity.x < 0)
 			{
 				flipX = true;
 			}
 		}
-		prevVelocity = velocity.x;
 	}
 }
