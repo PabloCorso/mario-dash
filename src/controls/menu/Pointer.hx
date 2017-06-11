@@ -1,4 +1,4 @@
-package controls;
+package controls.menu;
 import flixel.FlxSprite;
 
 class Pointer extends FlxSprite

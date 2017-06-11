@@ -1,5 +1,5 @@
 package controls;
-import controls.MenuList;
+import controls.menu.MenuList;
 import flixel.FlxBasic;
 import flixel.FlxG;
 import flixel.FlxSprite;

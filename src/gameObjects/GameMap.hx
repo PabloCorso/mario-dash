@@ -2,6 +2,7 @@ package gameObjects;
 import flixel.FlxObject;
 import flixel.math.FlxPoint;
 import flixel.tile.FlxTilemap;
+import gameObjects.MapData.MapDataConfig;
 import openfl.Assets;
 
 class GameMap extends FlxTilemap
@@ -18,10 +19,11 @@ class GameMap extends FlxTilemap
 		super();
 	}
 
-	public function load(mapId:String)
+	public function load(mapData:MapData)
 	{
-		var mapData:String = Assets.getText(mapId);
-		loadMapFromCSV(mapData, AssetPaths.map_tiles__png, mapTilesSize, mapTilesSize, null, 0, 1, 30);
+		var mapId = MapDataConfig.getId(mapData);
+		var map:String = Assets.getText(mapId);
+		loadMapFromCSV(map, AssetPaths.map_tiles__png, mapTilesSize, mapTilesSize, null, 0, 1, 30);
 	}
 
 	public function setEntities(EntityLoadCallback:EntityType->FlxPoint->Void, EntityLayer:String = "entities"):Void

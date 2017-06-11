@@ -10,13 +10,15 @@ import flixel.math.FlxPoint;
 import flixel.system.FlxSound;
 import gameObjects.Coin;
 import gameObjects.EntityType;
+import gameObjects.MapData;
 import gameObjects.Player;
 import gameObjects.GameMap;
 
 class GameState extends FlxState
 {
+	var mapData:MapData;
+
 	var map:GameMap;
-	var mapId:String;
 	var player:Player;
 	var hud:Hud;
 	var inGameMenu:InGameMenu;
@@ -27,9 +29,9 @@ class GameState extends FlxState
 	var sndCoin:FlxSound;
 	var sndExit:FlxSound;
 
-	public function new(mapId:String)
+	public function new(mapData:MapData)
 	{
-		this.mapId = mapId;
+		this.mapData = mapData;
 		super();
 	}
 
@@ -59,7 +61,7 @@ class GameState extends FlxState
 	function createMap()
 	{
 		map = new GameMap();
-		map.load(mapId);
+		map.load(mapData);
 		map.setFinishTile(playerTouchFinish);
 		map.setDeadlyTileCollisions(playerTouchDeadlyTile);
 	}
@@ -141,6 +143,6 @@ class GameState extends FlxState
 
 	function goToMapMenu()
 	{
-		FlxG.switchState(new MapState(mapId));
+		FlxG.switchState(new MapState(mapData));
 	}
 }

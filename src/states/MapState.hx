@@ -1,5 +1,5 @@
 package states;
-import controls.MenuList;
+import controls.menu.MenuList;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
@@ -7,6 +7,7 @@ import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
+import gameObjects.MapData;
 
 class MapState  extends FlxState
 {
@@ -14,13 +15,13 @@ class MapState  extends FlxState
 	static inline var replay = "Replay";
 	static inline var bestTimes = "Best times";
 
-	var mapId:String;
+	var mapData:MapData;
 	var menu:MenuList;
 
-	public function new(mapId:String)
+	public function new(mapData:MapData)
 	{
 		super();
-		this.mapId = mapId;
+		this.mapData = mapData;
 
 		drawMenu();
 	}
@@ -56,7 +57,7 @@ class MapState  extends FlxState
 		var txtOption:FlxText = cast option;
 		switch(txtOption.text){
 			case playAgain:
-				FlxG.switchState(new GameState(mapId));
+				FlxG.switchState(new GameState(mapData));
 			//case replay:
 			//case bestTimes:
 		}

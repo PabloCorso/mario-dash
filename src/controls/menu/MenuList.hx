@@ -1,4 +1,4 @@
-package controls;
+package controls.menu;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;

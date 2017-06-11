@@ -1,5 +1,5 @@
 package states ;
-import controls.MenuList;
+import controls.menu.MenuList;
 import controls.MapOption;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -61,6 +61,6 @@ class MenuState extends FlxState
 	{
 		var mapOption:MapOption = cast option;
 		var mapData = mapOption.getMapData();
-		FlxG.switchState(new GameState(MapDataConfig.getId(mapData)));
+		FlxG.switchState(new GameState(mapData));
 	}
 }
