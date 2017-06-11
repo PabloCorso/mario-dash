@@ -17,13 +17,25 @@ class MapState  extends FlxState
 
 	var mapData:MapData;
 	var menu:MenuList;
+	var txtHeader:FlxText;
 
 	public function new(mapData:MapData)
 	{
 		super();
 		this.mapData = mapData;
 
+		drawHeader();
 		drawMenu();
+	}
+
+	function drawHeader()
+	{
+		txtHeader = new FlxText();
+		txtHeader.size = 18;
+		txtHeader.text = "Level " + mapData.id + ": " + mapData.title;
+		txtHeader.screenCenter(FlxAxes.X);
+		txtHeader.y = 20;
+		add(txtHeader);
 	}
 
 	function drawMenu()
@@ -55,11 +67,12 @@ class MapState  extends FlxState
 	function optionSelected(option:FlxSprite):Void
 	{
 		var txtOption:FlxText = cast option;
-		switch(txtOption.text){
+		switch (txtOption.text)
+		{
 			case playAgain:
 				FlxG.switchState(new GameState(mapData));
-			//case replay:
-			//case bestTimes:
+				//case replay:
+				//case bestTimes:
 		}
 	}
 
