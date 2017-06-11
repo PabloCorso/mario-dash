@@ -1,7 +1,8 @@
 package states ;
-import controls.menu.MapButton;
-import controls.menu.MenuList;
+import controls.OptionList;
+import controls.MapOption;
 import flixel.FlxG;
+import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
@@ -13,9 +14,10 @@ import openfl.Assets;
 
 class MenuState extends FlxState
 {
-	static inline var mapsFilePath:String = "assets/maps/maps.json";
+	static inline var textSize:Int = 16;
 
 	var title:FlxText;
+	var menu:OptionList;
 
 	public function new()
 	{
@@ -36,20 +38,27 @@ class MenuState extends FlxState
 
 	function addMapButtons()
 	{
-		var mapsFile = Assets.getText(mapsFilePath);
+		var mapsFile = Assets.getText(MapDataConfig.mapsFilePath);
 		var maps:Array<MapData> = Json.parse(mapsFile);
-		displayMapButtons(maps);
+
+		var options = new Array<FlxSprite>();
+		for (mapData in maps)
+		{
+			var option = new MapOption(mapData);
+			option.size = textSize;
+			options.push(option);
+		}
+
+		menu = new OptionList(0, FlxG.height * 0.3, FlxG.width, FlxG.height * 0.5);
+		menu.screenCenter(FlxAxes.X);
+		menu.setOptions(options, optionSelected);
+		add(menu);
 	}
 
-	function displayMapButtons(maps:Array<MapData>)
+	function optionSelected(option:FlxSprite):Void
 	{
-		if (maps.length > 0)
-		{
-			var list = new MenuList(maps);
-			list.screenCenter(FlxAxes.X);
-			list.y = title.y + title.health + 70;
-			list.height = FlxG.height - list.y - 40;
-			add(list);
-		}
+		var mapOption:MapOption = cast option;
+		var mapData = mapOption.getMapData();
+		FlxG.switchState(new GameState(MapDataConfig.getId(mapData)));
 	}
 }
