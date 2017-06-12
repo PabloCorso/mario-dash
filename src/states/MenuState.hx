@@ -63,4 +63,14 @@ class MenuState extends FlxState
 		var mapData = mapOption.getMapData();
 		FlxG.switchState(new GameState(mapData));
 	}
+
+	override public function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
+
+		if (FlxG.keys.justPressed.ESCAPE)
+		{
+			FlxG.switchState(new ExitState());
+		}
+	}
 }

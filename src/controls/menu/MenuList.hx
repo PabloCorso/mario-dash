@@ -1,4 +1,5 @@
 package controls.menu;
+import controls.menu.PointerMove;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
@@ -14,10 +15,11 @@ class MenuList extends FlxTypedGroup<FlxSprite>
 	private static inline var spacing:Int = 10;
 	private static inline var pointerMargin:Int = 10;
 
-	var x:Float;
-	var y:Float;
-	var width:Float;
-	var height:Float;
+	public var x:Float;
+	public var y:Float;
+	public var width:Float;
+	public var height:Float;
+	public var goAround:Bool;
 
 	var options:Array<FlxSprite>;
 	var selectCallback:FlxSprite->Void;
@@ -30,13 +32,14 @@ class MenuList extends FlxTypedGroup<FlxSprite>
 	var pointer:FlxSprite;
 	var sndPointer:FlxSound;
 
-	public function new(?X:Float=0, ?Y:Float=0, ?Width:Float=0, ?Height:Float=0)
+	public function new(?x:Float=0, ?y:Float=0, ?width:Float=0, ?height:Float=0, ?goAround:Bool=true)
 	{
 		super();
-		x = X;
-		y = Y;
-		width = Width;
-		height = Height;
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.goAround = goAround;
 
 		selectedIndex = 0;
 		pointer = new Pointer();
@@ -139,39 +142,48 @@ class MenuList extends FlxTypedGroup<FlxSprite>
 		}
 		else
 		{
-			switch (pointerMove)
-			{
-				case PointerMove.UP:
-					if (selectedIndex == 0)
-						selectedIndex = options.length - 1;
-					else
-						selectedIndex--;
-				case PointerMove.DOWN:
-					if (selectedIndex == options.length - 1)
-						selectedIndex = 0;
-					else
-						selectedIndex++;
-			}
-
-			if (selectedIndex < minVisibleIndex)
-			{
-				if (selectedIndex == 0)
-					minVisibleIndex = 0;
-				else
-					minVisibleIndex--;
-				placeOptions();
-			}
-			else if (selectedIndex > maxVisibleIndex)
-			{
-				if (selectedIndex == options.length - 1)
-					minVisibleIndex = options.length - 1 - (maxVisibleIndex - minVisibleIndex);
-				else
-					minVisibleIndex++;
-				placeOptions();
-			}
+			updateSelectedIndex(pointerMove);
+			updateVisibleOptions();
 
 			if (sndPointer != null) sndPointer.play();
 			placePointer();
+		}
+	}
+
+	function updateSelectedIndex(pointerMove:PointerMove)
+	{
+		switch (pointerMove)
+		{
+			case PointerMove.UP:
+				if (selectedIndex == 0)
+					selectedIndex = goAround ? options.length - 1 : selectedIndex;
+				else
+					selectedIndex--;
+			case PointerMove.DOWN:
+				if (selectedIndex == options.length - 1)
+					selectedIndex = goAround ? 0 : selectedIndex;
+				else
+					selectedIndex++;
+		}
+	}
+
+	function updateVisibleOptions()
+	{
+		if (selectedIndex < minVisibleIndex)
+		{
+			if (selectedIndex == 0)
+				minVisibleIndex = 0;
+			else
+				minVisibleIndex--;
+			placeOptions();
+		}
+		else if (selectedIndex > maxVisibleIndex)
+		{
+			if (selectedIndex == options.length - 1)
+				minVisibleIndex = options.length - 1 - (maxVisibleIndex - minVisibleIndex);
+			else
+				minVisibleIndex++;
+			placeOptions();
 		}
 	}
 
