@@ -24,9 +24,9 @@ class MenuList extends FlxTypedGroup<FlxSprite>
 	var options:Array<FlxSprite>;
 	var selectCallback:FlxSprite->Void;
 
-	var minVisibleIndex:Int;
-	var maxVisibleIndex:Int;
-	var optionsX:Float;
+	var minVisibleIndex:Int = 0;
+	var maxVisibleIndex:Int = 0;
+	var optionsX:Float ;
 
 	var selectedIndex:Int;
 	var pointer:FlxSprite;

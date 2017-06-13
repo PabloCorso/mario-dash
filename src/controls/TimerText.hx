@@ -16,7 +16,7 @@ class TimerText extends FlxText
 
 	function getTimeDisplay(secs:Float)
 	{
-		var milliseconds = round(secs * 1000, 0) % 1000;
+		var milliseconds = (secs * 100 - Math.floor(secs) * 100);
 		var seconds:Int = cast (secs) % 60;
 		var minutes:Int = cast ((secs / (60)) % 60);
 		var hours:Int   = cast ((secs / (60*60)) % 24);
