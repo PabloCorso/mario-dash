@@ -16,10 +16,17 @@ class TimerText extends FlxText
 
 	function getTimeDisplay(secs:Float)
 	{
+		#if web
+		var milliseconds = Std.int((secs * 100 - Math.floor(secs) * 100));
+		var seconds:Int = Std.int((secs) % 60);
+		var minutes:Int = Std.int((Math.floor(secs / 60) % 60));
+		var hours:Int   = Std.int((Math.floor((secs / (60 * 60)) % 24)));
+		#else
 		var milliseconds = (secs * 100 - Math.floor(secs) * 100);
 		var seconds:Int = cast (secs) % 60;
-		var minutes:Int = cast ((secs / (60)) % 60);
-		var hours:Int   = cast ((secs / (60*60)) % 24);
+		var minutes:Int = cast ((secs / 60) % 60);
+		var hours:Int   = cast ((secs / (60 * 60)) % 24);
+		#end
 
 		var hoursText = hours == 0 ? "" : hours + ":";
 		var minsText = hours == 0 && minutes == 0 ? "" : minutes + ":";
