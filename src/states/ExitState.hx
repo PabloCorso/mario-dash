@@ -5,6 +5,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.util.FlxAxes;
+import flixel.util.FlxColor;
 import openfl.system.System;
 
 class ExitState extends FlxState
@@ -16,6 +17,7 @@ class ExitState extends FlxState
 	public function new()
 	{
 		super();
+		this.bgColor = FlxColor.BLACK;
 
 		var txtHeader = new FlxText();
 		txtHeader.size = textSize;

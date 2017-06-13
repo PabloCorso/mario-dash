@@ -37,7 +37,7 @@ class Player extends FlxSprite
 
 	function initializeGraphics()
 	{
-		loadGraphic(AssetPaths.player__png, true, 16, 16);
+		loadGraphic(AssetPaths.mario__png, true, 16, 16);
 		loadAnimations();
 		width = 14;
 		height = 16;

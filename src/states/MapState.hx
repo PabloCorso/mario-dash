@@ -30,6 +30,8 @@ class MapState extends FlxState
 		this.finished = finished;
 		this.seconds = seconds;
 
+		this.bgColor = FlxColor.BLACK;
+		
 		drawHeader();
 		drawMenu();
 		drawFinishInfo();

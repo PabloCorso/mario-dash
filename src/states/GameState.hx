@@ -8,6 +8,7 @@ import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxPoint;
 import flixel.system.FlxSound;
+import flixel.util.FlxColor;
 import gameObjects.Coin;
 import gameObjects.EntityType;
 import gameObjects.MapData;
@@ -39,6 +40,8 @@ class GameState extends FlxState
 
 	override public function create():Void
 	{
+		this.bgColor = FlxColor.fromString("#6B8CFF");
+		
 		player = new Player();
 		coins = new FlxTypedGroup<Coin>();
 		sndCoin = FlxG.sound.load(AssetPaths.coin__wav);
