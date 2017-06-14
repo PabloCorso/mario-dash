@@ -11,6 +11,7 @@ import flixel.system.FlxSound;
 import flixel.util.FlxColor;
 import gameObjects.Coin;
 import gameObjects.EntityType;
+import gameObjects.Exit;
 import gameObjects.MapData;
 import gameObjects.Player;
 import gameObjects.GameMap;
@@ -21,6 +22,7 @@ class GameState extends FlxState
 
 	var map:GameMap;
 	var player:Player;
+	var exit:Exit;
 	var hud:Hud;
 	var inGameMenu:InGameMenu;
 
@@ -28,7 +30,7 @@ class GameState extends FlxState
 	var coinsTaken:Int;
 	var totalCoins:Int;
 	var sndCoin:FlxSound;
-	
+
 	var sndExit:FlxSound;
 	var finished:Bool;
 
@@ -41,17 +43,17 @@ class GameState extends FlxState
 	override public function create():Void
 	{
 		this.bgColor = FlxColor.fromString("#6B8CFF");
-		
-		player = new Player();
+
 		coins = new FlxTypedGroup<Coin>();
 		sndCoin = FlxG.sound.load(AssetPaths.coin__wav);
 		inGameMenu = new InGameMenu();
 		hud = new Hud();
 
 		createMap();
-		setCameraBehaviour();
 		map.setEntities(placeEntities);
+		setCameraBehaviour();
 
+		add(exit);
 		add(coins);
 		add(map);
 		add(player);
@@ -67,7 +69,6 @@ class GameState extends FlxState
 	{
 		map = new GameMap();
 		map.load(mapData);
-		map.setFinishTile(playerTouchFinish);
 		map.setDeadlyTileCollisions(playerTouchDeadlyTile);
 	}
 
@@ -76,10 +77,12 @@ class GameState extends FlxState
 		switch (type)
 		{
 			case EntityType.Player:
-				player.setPosition(position.x, position.y);
+				player = new Player(position.x, position.y);
 			case EntityType.Coin:
 				coins.add(new Coin(position.x, position.y));
 				totalCoins++;
+			case EntityType.Exit:
+				exit = new Exit(position.x, position.y);
 		}
 	}
 
@@ -113,6 +116,7 @@ class GameState extends FlxState
 		}
 
 		FlxG.collide(map, player);
+		FlxG.overlap(player, exit, playerTouchExit);
 		FlxG.overlap(player, coins, playerTouchCoin);
 	}
 
@@ -132,11 +136,11 @@ class GameState extends FlxState
 		}
 	}
 
-	function playerTouchFinish(Tile:FlxObject, Particle:FlxObject)
+	function playerTouchExit(Tile:FlxObject, Particle:FlxObject)
 	{
 		if (coinsTaken >= totalCoins)
 		{
-			FlxG.sound.playMusic(AssetPaths.exit__wav, 1, false);
+			exit.playFininsh();
 			finished = true;
 			goToMapMenu();
 		}

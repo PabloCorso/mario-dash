@@ -7,17 +7,17 @@
 	{
 		"id": 2,
 		"title": "Ice chips",
-		"path": "map01"
+		"path": "map02"
 	},
 	{
 		"id": 3,
-		"title": "Coinless",
-		"path": "map01"
+		"title": "Coinfull",
+		"path": "map03"
 	},
 	{
 		"id": 4,
 		"title": "Free Fall",
-		"path": "map01"
+		"path": "map04"
 	},
 	{
 		"id": 5,

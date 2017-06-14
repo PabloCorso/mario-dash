@@ -20,9 +20,9 @@ class Player extends FlxSprite
 	var jumpCounter: Float = 0;
 	var sndJump:FlxSound;
 
-	public function new()
+	public function new(X:Float, Y:Float)
 	{
-		super();
+		super(X, Y);
 		initializeGraphics();
 		setPhysics();
 		sndJump = FlxG.sound.load(AssetPaths.jump__wav);

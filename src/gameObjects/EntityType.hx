@@ -4,4 +4,5 @@ enum EntityType
 {
 	Player;
 	Coin;
+	Exit;
 }
