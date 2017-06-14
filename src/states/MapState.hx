@@ -110,7 +110,7 @@ class MapState extends FlxState
 
 		if (FlxG.keys.justPressed.ESCAPE)
 		{
-			FlxG.switchState(new MenuState());
+			FlxG.switchState(new MenuState(mapData.id));
 		}
 	}
 }

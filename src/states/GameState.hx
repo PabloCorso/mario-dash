@@ -110,7 +110,7 @@ class GameState extends FlxState
 
 		if (inGameMenu.requestedQuit)
 		{
-			FlxG.switchState(new MenuState());
+			FlxG.switchState(new QuitState());
 			return;
 		}
 		if (FlxG.keys.justPressed.ESCAPE)

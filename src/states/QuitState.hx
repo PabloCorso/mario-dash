@@ -8,7 +8,7 @@ import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
 import openfl.system.System;
 
-class ExitState extends FlxState
+class QuitState extends FlxState
 {
 	static inline var textSize = 16;
 	static inline var noOption = "No";

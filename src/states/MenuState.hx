@@ -16,11 +16,14 @@ class MenuState extends FlxState
 {
 	static inline var textSize:Int = 16;
 
+	var selectMapId:Int;
+
 	var title:FlxText;
 	var menu:MenuList;
 
-	public function new()
+	public function new(?selectMapId:Int=0)
 	{
+		this.selectMapId = selectMapId;
 		super();
 		FlxG.mouse.visible = false;
 	}
@@ -54,6 +57,7 @@ class MenuState extends FlxState
 		menu = new MenuList(0, titleYSpace, FlxG.width, FlxG.height - titleYSpace);
 		menu.screenCenter(FlxAxes.X);
 		menu.setOptions(options, optionSelected);
+		menu.setPointerTo(selectMapId - 1);
 		add(menu);
 	}
 
@@ -70,7 +74,7 @@ class MenuState extends FlxState
 
 		if (FlxG.keys.justPressed.ESCAPE)
 		{
-			FlxG.switchState(new ExitState());
+			FlxG.switchState(new QuitState());
 		}
 	}
 }

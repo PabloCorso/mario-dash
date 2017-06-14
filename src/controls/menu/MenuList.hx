@@ -75,6 +75,15 @@ class MenuList extends FlxTypedGroup<FlxSprite>
 		sndPointer = sound;
 	}
 
+	public function setPointerTo(index:Int)
+	{
+		if (options != null && index > 0 && index < options.length)
+		{
+			selectedIndex = index;
+			updateMenu();
+		}
+	}
+
 	function placeOptions()
 	{
 		removeOptions();
@@ -143,11 +152,16 @@ class MenuList extends FlxTypedGroup<FlxSprite>
 		else
 		{
 			updateSelectedIndex(pointerMove);
-			updateVisibleOptions();
-
-			if (sndPointer != null) sndPointer.play();
-			placePointer();
+			updateMenu();
 		}
+	}
+
+	function updateMenu()
+	{
+		updateVisibleOptions();
+
+		if (sndPointer != null) sndPointer.play();
+		placePointer();
 	}
 
 	function updateSelectedIndex(pointerMove:PointerMove)

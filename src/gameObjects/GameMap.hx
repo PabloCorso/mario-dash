@@ -23,10 +23,9 @@ class GameMap extends FlxTilemap
 
 	public function load(mapData:MapData)
 	{
-		var mapId = MapDataConfig.getId(mapData);
-		var map:String = Assets.getText(mapId);
+		var mapPath = MapDataConfig.getPath(mapData);
+		var map:String = Assets.getText(mapPath);
 		loadMapFromCSV(map, AssetPaths.map_tiles__png, mapTilesSize, mapTilesSize, null, 0, 20, 30);
-		postGraphicLoad();
 	}
 
 	public function setEntities(EntityLoadCallback:EntityType->FlxPoint->Void, EntityLayer:String = "entities"):Void
