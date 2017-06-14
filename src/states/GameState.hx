@@ -4,7 +4,9 @@ import controls.InGameMenu;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxObject;
+import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.addons.display.FlxBackdrop;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxPoint;
 import flixel.util.FlxColor;
@@ -48,6 +50,12 @@ class GameState extends FlxState
 		createMap();
 		map.setEntities(placeEntities);
 		setCameraBehaviour();
+
+		//var hills = new FlxBackdrop(AssetPaths.hills__png, 1, 0, true, false);
+		//hills.setPosition(0, FlxG.height - hills.height);
+		//var hillsSky = new FlxBackdrop(AssetPaths.hills_sky__png, 1, -0.1, true, true);
+		//add(hillsSky);
+		//add(hills);
 
 		add(exit);
 		add(coins);
