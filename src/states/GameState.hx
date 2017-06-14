@@ -7,7 +7,6 @@ import flixel.FlxObject;
 import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxPoint;
-import flixel.system.FlxSound;
 import flixel.util.FlxColor;
 import gameObjects.Coin;
 import gameObjects.EntityType;
@@ -29,9 +28,7 @@ class GameState extends FlxState
 	var coins:FlxTypedGroup<Coin>;
 	var coinsTaken:Int;
 	var totalCoins:Int;
-	var sndCoin:FlxSound;
 
-	var sndExit:FlxSound;
 	var finished:Bool;
 
 	public function new(mapData:MapData)
@@ -45,7 +42,6 @@ class GameState extends FlxState
 		this.bgColor = FlxColor.fromString("#6B8CFF");
 
 		coins = new FlxTypedGroup<Coin>();
-		sndCoin = FlxG.sound.load(AssetPaths.coin__wav);
 		inGameMenu = new InGameMenu();
 		hud = new Hud();
 
@@ -130,9 +126,8 @@ class GameState extends FlxState
 	{
 		if (coin.alive && coin.exists)
 		{
-			sndCoin.play(true);
+			coin.take();
 			coinsTaken++;
-			coin.kill();
 		}
 	}
 
