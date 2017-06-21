@@ -28,7 +28,7 @@ class Hud extends FlxTypedGroup<FlxSprite>
 		coinIcon = new FlxSprite();
 		txtCoinsLeft.size = textSize;
 		coinIcon.scrollFactor.set();
-		coinIcon.loadGraphic(AssetPaths.coinIcon__png, true);
+		coinIcon.loadGraphic(AssetPaths.hud_coin__png);
 		coinIcon.setPosition(sidesMargin, coinIconMarginTop);
 		txtCoinsLeft.setPosition(txtCoinsMarginTop, txtCoinsMarginSide);
 
