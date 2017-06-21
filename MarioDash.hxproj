@@ -34,7 +34,7 @@
     <option noInlineOnDebug="False" />
     <option mainClass="ApplicationMain" />
     <option enabledebug="True" />
-    <option additional="--macro flixel.system.macros.FlxDefines.run()&#xA;-swf-version 11.8&#xA;-debug " />
+    <option additional="--macro flixel.system.macros.FlxDefines.run()&#xA;-swf-version 11.8" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>

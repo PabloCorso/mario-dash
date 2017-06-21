@@ -41,7 +41,7 @@ class GameState extends FlxState
 
 	override public function create():Void
 	{
-		this.bgColor = FlxColor.fromString("#6B8CFF");
+		//this.bgColor = FlxColor.fromString("#6B8CFF");
 
 		coins = new FlxTypedGroup<Coin>();
 		inGameMenu = new InGameMenu();
@@ -51,11 +51,11 @@ class GameState extends FlxState
 		map.setEntities(placeEntities);
 		setCameraBehaviour();
 
-		//var hills = new FlxBackdrop(AssetPaths.hills__png, 1, 0, true, false);
-		//hills.setPosition(0, FlxG.height - hills.height);
-		//var hillsSky = new FlxBackdrop(AssetPaths.hills_sky__png, 1, -0.1, true, true);
-		//add(hillsSky);
-		//add(hills);
+		var hills = new FlxBackdrop(AssetPaths.hills__png, 1, 0, true, false);
+		hills.setPosition(0, FlxG.height - hills.height);
+		var hillsSky = new FlxBackdrop(AssetPaths.hills_sky__png, 1, -0.1, true, true);
+		add(hillsSky);
+		add(hills);
 
 		add(exit);
 		add(coins);
