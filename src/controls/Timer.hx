@@ -12,22 +12,29 @@ class Timer extends TimerText
 		super();
 	}
 
-	public function start()
+	public function start(initialTime:Float)
 	{
-		timePassed = 0;
+		timePassed = initialTime;
 	}
 
 	override public function update(elapsed:Float):Void
 	{
-		if (!isPaused)
+		if (!isPaused && timePassed > 0)
 		{
-			timePassed += elapsed;
+			if (timePassed - elapsed < 0)
+			{
+				timePassed =  0;
+			}
+			else
+			{
+				timePassed -= elapsed;
+			}
 			text = getTimeDisplay(timePassed);
 		}
 		super.update(elapsed);
 	}
-	
-	public function getTime() 
+
+	public function getTime()
 	{
 		return timePassed;
 	}

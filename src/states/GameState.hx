@@ -46,7 +46,7 @@ class GameState extends FlxState
 		coins = new FlxTypedGroup<Coin>();
 		inGameMenu = new InGameMenu();
 		hud = new Hud();
-		
+
 		createMap();
 		map.setEntities(placeEntities);
 		hud.setCoinsLeft(totalCoins);
@@ -65,8 +65,7 @@ class GameState extends FlxState
 		add(inGameMenu);
 		add(hud);
 
-		hud.startTimer();
-
+		hud.startTimer(mapData.time);
 		//hud.setBestTime(13.78);
 	}
 
@@ -112,12 +111,14 @@ class GameState extends FlxState
 		if (inGameMenu.requestedQuit)
 		{
 			FlxG.switchState(new QuitState());
-			return;
 		}
 		if (FlxG.keys.justPressed.ESCAPE)
 		{
 			goToMapMenu();
-			return;
+		}
+		if (hud.isTimeOut())
+		{
+			goToMapMenu();
 		}
 
 		FlxG.collide(map, player);

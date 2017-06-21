@@ -52,9 +52,9 @@ class Hud extends FlxTypedGroup<FlxSprite>
 		txtCoinsLeft.text = Std.string(coinsLeft);
 
 	}
-	public function startTimer()
+	public function startTimer(initialTime:Float)
 	{
-		timer.start();
+		timer.start(initialTime);
 	}
 
 	public function togglePause(pause:Bool)
@@ -75,6 +75,11 @@ class Hud extends FlxTypedGroup<FlxSprite>
 	public function getSeconds()
 	{
 		return timer.getTime();
+	}
+
+	public function isTimeOut():Bool
+	{
+		return timer.getTime() == 0;
 	}
 
 	function updateTimerPosition()

@@ -3,51 +3,60 @@
 		"id": 1,
 		"title": "Warm up",
 		"path": "map01",
-		"time": 14
+		"time": 18
 	},
 	{
 		"id": 2,
 		"title": "Ice chips",
-		"path": "map02"
+		"path": "map02",
+		"time": 20
 	},
 	{
 		"id": 3,
 		"title": "Coinfull",
-		"path": "map03"
+		"path": "map03",
+		"time": 12
 	},
 	{
 		"id": 4,
 		"title": "Free Fall",
-		"path": "map04"
+		"path": "map04",
+		"time": 16
 	},
 	{
 		"id": 5,
 		"title": "Bumpy",
-		"path": "map05"
+		"path": "map05",
+		"time": 34
 	},
 	{
 		"id": 6,
 		"title": "Zig Zag",
-		"path": "map01"
+		"path": "map01",
+		"time": 14
 	},
 	{
 		"id": 7,
 		"title": "Coin Harvest",
-		"path": "map01"
+		"path": "map01",
+		"time": 14
 	},
 	{
 		"id": 8,
 		"title": "Dead Zone",
-		"path": "map01"
+		"path": "map01",
+		"time": 14
 	},
 	{
 		"id": 9,
 		"title": "Flat Track",
-		"path": "map01"
+		"path": "map01",
+		"time": 14
 	},
 	{
 		"id": 10,
 		"title": "Flixel",
-		"path": "map01"
+		"path": "map01",
+		"time": 14
 	}
 ]
