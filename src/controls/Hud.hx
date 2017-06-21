@@ -20,19 +20,18 @@ class Hud extends FlxTypedGroup<FlxSprite>
 	var timer:Timer;
 	var txtMaxWidth:Float = 0;
 	var coinIcon: FlxSprite;
-	
+
 	public function new()
 	{
 		super();
-		txtCoinsLeft = new FlxText();
+		txtCoinsLeft = new HudText();
 		coinIcon = new FlxSprite();
 		txtCoinsLeft.size = textSize;
-		txtCoinsLeft.scrollFactor.set();
 		coinIcon.scrollFactor.set();
 		coinIcon.loadGraphic(AssetPaths.coinIcon__png, true);
 		coinIcon.setPosition(sidesMargin, coinIconMarginTop);
 		txtCoinsLeft.setPosition(txtCoinsMarginTop, txtCoinsMarginSide);
-		
+
 		timer = new Timer();
 		timer.size = textSize;
 		add(coinIcon);
@@ -48,9 +47,10 @@ class Hud extends FlxTypedGroup<FlxSprite>
 		add(txtBestTime);
 	}
 
-	public function setCoinsLeft(coinsLeft:Int){
+	public function setCoinsLeft(coinsLeft:Int)
+	{
 		txtCoinsLeft.text = Std.string(coinsLeft);
-		
+
 	}
 	public function startTimer()
 	{
@@ -71,8 +71,8 @@ class Hud extends FlxTypedGroup<FlxSprite>
 
 		super.update(elapsed);
 	}
-	
-	public function getSeconds() 
+
+	public function getSeconds()
 	{
 		return timer.getTime();
 	}

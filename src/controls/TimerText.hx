@@ -1,16 +1,10 @@
 package controls;
-import flixel.text.FlxText;
-import flixel.util.FlxColor;
 
-class TimerText extends FlxText
+class TimerText extends HudText
 {
 	public function new(?seconds:Float=null)
 	{
 		super();
-		scrollFactor.set();
-		borderSize = 1;
-		borderColor = FlxColor.BLACK;
-		borderStyle = FlxTextBorderStyle.OUTLINE;
 
 		if (seconds != null)
 		{
