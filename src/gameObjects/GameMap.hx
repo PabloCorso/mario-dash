@@ -14,8 +14,7 @@ class GameMap extends FlxTilemap
 	static inline var coinTile:Int = 2;
 	static inline var exitTile:Int = 3;
 
-	var deadlyTiles = [45,46,47,48,49,51];
-
+	var deadlyTiles = [45, 46, 47, 48, 49, 51];
 	public function new()
 	{
 		super();

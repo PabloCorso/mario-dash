@@ -46,9 +46,10 @@ class GameState extends FlxState
 		coins = new FlxTypedGroup<Coin>();
 		inGameMenu = new InGameMenu();
 		hud = new Hud();
-
+		
 		createMap();
 		map.setEntities(placeEntities);
+		hud.setCoinsLeft(totalCoins);
 		setCameraBehaviour();
 
 		//var hills = new FlxBackdrop(AssetPaths.hills__png, 1, 0, true, false);
@@ -136,6 +137,7 @@ class GameState extends FlxState
 		{
 			coin.take();
 			coinsTaken++;
+			hud.setCoinsLeft(totalCoins - coinsTaken);
 		}
 	}
 
