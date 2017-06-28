@@ -32,7 +32,7 @@ class Player extends FlxSprite
 	{
 		drag.x = 500;
 		maxVelocity.x = 80;
-		acceleration.y = 200;
+		acceleration.y = 230;
 	}
 
 	function initializeGraphics()
@@ -79,7 +79,7 @@ class Player extends FlxSprite
 
 		if (keepJumping())
 		{
-			jumpCounter += elapsed * 1000;
+			jumpCounter += elapsed * 825;
 			velocity.y = velocityY;
 		}
 		else
