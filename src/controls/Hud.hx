@@ -11,31 +11,31 @@ class Hud extends FlxTypedGroup<FlxSprite>
 {
 	static inline var textSize:Int = 16;
 	static inline var sidesMargin:Int = 16;
-	static inline var txtCoinsMarginTop:Int = 30;
-	static inline var txtCoinsMarginSide = 10;
-	static inline var coinIconMarginTop = 13;
+	static inline var txtKeysMarginTop:Int = 32;
+	static inline var txtKeysMarginSide = 10;
+	static inline var keyIconMarginTop = 13;
 	static inline var topMargin:Int = 8;
 
-	var txtCoinsLeft:FlxText;
+	var txtKeysLeft:FlxText;
 	var timer:Timer;
 	var txtMaxWidth:Float = 0;
-	var coinIcon: FlxSprite;
+	var keyIcon: FlxSprite;
 
 	public function new()
 	{
 		super();
-		txtCoinsLeft = new HudText();
-		coinIcon = new FlxSprite();
-		txtCoinsLeft.size = textSize;
-		coinIcon.scrollFactor.set();
-		coinIcon.loadGraphic(AssetPaths.hud_coin__png);
-		coinIcon.setPosition(sidesMargin, coinIconMarginTop);
-		txtCoinsLeft.setPosition(txtCoinsMarginTop, txtCoinsMarginSide);
+		txtKeysLeft = new HudText();
+		keyIcon = new FlxSprite();
+		txtKeysLeft.size = textSize;
+		keyIcon.scrollFactor.set();
+		keyIcon.loadGraphic(AssetPaths.hud_key__png);
+		keyIcon.setPosition(sidesMargin, keyIconMarginTop);
+		txtKeysLeft.setPosition(txtKeysMarginTop, txtKeysMarginSide);
 
 		timer = new Timer();
 		timer.size = textSize;
-		add(coinIcon);
-		add(txtCoinsLeft);
+		add(keyIcon);
+		add(txtKeysLeft);
 		add(timer);
 	}
 
@@ -47,9 +47,9 @@ class Hud extends FlxTypedGroup<FlxSprite>
 		add(txtBestTime);
 	}
 
-	public function setCoinsLeft(coinsLeft:Int)
+	public function setKeysLeft(coinsLeft:Int)
 	{
-		txtCoinsLeft.text = Std.string(coinsLeft);
+		txtKeysLeft.text = Std.string(coinsLeft);
 
 	}
 	public function startTimer(initialTime:Float)

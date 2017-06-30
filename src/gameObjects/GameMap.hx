@@ -11,7 +11,7 @@ class GameMap extends FlxTilemap
 {
 	static inline var mapTilesSize:Int = 16;
 	static inline var startTile:Int = 1;
-	static inline var coinTile:Int = 2;
+	static inline var keyTile:Int = 2;
 	static inline var exitTile:Int = 3;
 
 	var deadlyTiles = [45, 46, 47, 48, 49, 51];
@@ -35,10 +35,10 @@ class GameMap extends FlxTilemap
 		var exitPosition = getEntityTilePositions(exitTile)[0];
 		EntityLoadCallback(EntityType.Exit, exitPosition);
 
-		var coinPositions = getEntityTilePositions(coinTile);
-		for (coinPosition in coinPositions)
+		var keyPositions = getEntityTilePositions(keyTile);
+		for (keyPosition in keyPositions)
 		{
-			EntityLoadCallback(EntityType.Coin, coinPosition);
+			EntityLoadCallback(EntityType.Key, keyPosition);
 		}
 	}
 

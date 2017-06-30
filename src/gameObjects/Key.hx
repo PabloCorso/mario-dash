@@ -5,27 +5,28 @@ import flixel.FlxSprite;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 
-class Coin extends FlxSprite
+class Key extends FlxSprite
 {
-	private static inline var rotate:String = "rotate";
+	private static inline var killKey:String = "killKey";
 
 	public function new(X:Float=0, Y:Float=0)
 	{
 		super(X, Y);
-		loadGraphic(AssetPaths.coin__png, true, 16, 16);
+		loadGraphic(AssetPaths.key__png, true, 16, 16);
 		setSize(13, 16);
 		loadAnimations();
 	}
 
 	public function take()
 	{
+		animation.play(killKey);
 		FlxG.sound.play(AssetPaths.coin__wav);
 		kill();
 	}
 
 	function loadAnimations()
 	{
-		animation.add(rotate, [0, 1, 2, 3], 5);
-		animation.play(rotate);
+		animation.add(killKey, [0, 1], 5);
+
 	}
 }

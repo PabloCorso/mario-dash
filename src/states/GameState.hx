@@ -10,7 +10,7 @@ import flixel.addons.display.FlxBackdrop;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxPoint;
 import flixel.util.FlxColor;
-import gameObjects.Coin;
+import gameObjects.Key;
 import gameObjects.EntityType;
 import gameObjects.Exit;
 import gameObjects.MapData;
@@ -27,9 +27,9 @@ class GameState extends FlxState
 	var hud:Hud;
 	var inGameMenu:InGameMenu;
 
-	var coins:FlxTypedGroup<Coin>;
-	var coinsTaken:Int;
-	var totalCoins:Int;
+	var coins:FlxTypedGroup<Key>;
+	var keysTaken:Int;
+	var totalKeys:Int;
 
 	var finished:Bool;
 
@@ -43,13 +43,13 @@ class GameState extends FlxState
 	{
 		//this.bgColor = FlxColor.fromString("#6B8CFF");
 
-		coins = new FlxTypedGroup<Coin>();
+		coins = new FlxTypedGroup<Key>();
 		inGameMenu = new InGameMenu();
 		hud = new Hud();
 
 		createMap();
 		map.setEntities(placeEntities);
-		hud.setCoinsLeft(totalCoins);
+		hud.setKeysLeft(totalKeys);
 		setCameraBehaviour();
 
 		var hills = new FlxBackdrop(AssetPaths.hills__png, 1, 0, true, false);
@@ -82,9 +82,9 @@ class GameState extends FlxState
 		{
 			case EntityType.Player:
 				player = new Player(position.x, position.y);
-			case EntityType.Coin:
-				coins.add(new Coin(position.x, position.y));
-				totalCoins++;
+			case EntityType.Key:
+				coins.add(new Key(position.x, position.y));
+				totalKeys++;
 			case EntityType.Exit:
 				exit = new Exit(position.x, position.y);
 		}
@@ -123,7 +123,7 @@ class GameState extends FlxState
 
 		FlxG.collide(map, player);
 		FlxG.overlap(player, exit, playerTouchExit);
-		FlxG.overlap(player, coins, playerTouchCoin);
+		FlxG.overlap(player, coins, playerTouchKey);
 	}
 
 	function isPressingPause()
@@ -132,21 +132,21 @@ class GameState extends FlxState
 			   (player.isTouching(FlxObject.FLOOR) || inGameMenu.visible);
 	}
 
-	private function playerTouchCoin(player:Player, coin:Coin):Void
+	private function playerTouchKey(player:Player, key:Key):Void
 	{
-		if (coin.alive && coin.exists)
+		if (key.alive && key.exists)
 		{
-			coin.take();
-			coinsTaken++;
-			hud.setCoinsLeft(totalCoins - coinsTaken);
+			key.take();
+			keysTaken++;
+			hud.setKeysLeft(totalKeys - keysTaken);
 		}
 	}
 
 	function playerTouchExit(Tile:FlxObject, Particle:FlxObject)
 	{
-		if (coinsTaken >= totalCoins)
+		if (keysTaken >= totalKeys)
 		{
-			exit.playFininsh();
+			exit.playFinish();
 			finished = true;
 			goToMapMenu();
 		}
