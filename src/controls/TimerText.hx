@@ -2,10 +2,12 @@ package controls;
 
 class TimerText extends HudText
 {
+	var seconds:Float;
 	public function new(?seconds:Float=null)
 	{
 		super();
 
+		this.seconds = seconds;
 		if (seconds != null)
 		{
 			text = getTimeDisplay(seconds);
@@ -34,9 +36,14 @@ class TimerText extends HudText
 		return hoursText + minsText + secsText + ":" + milliText.substr(0, 2);
 	}
 
-	function round(number:Float, ?precision=2): Float
+	public function setPrefix(prefix:String)
 	{
-		number *= Math.pow(10, precision);
-		return Math.round(number) / Math.pow(10, precision);
+		text = prefix + text;
+	}
+
+	public function setSecondaryTime(time:Float)
+	{
+		var secondaryTime = getTimeDisplay(time);
+		text = text + " (" + secondaryTime + ")";
 	}
 }

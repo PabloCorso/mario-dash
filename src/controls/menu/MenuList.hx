@@ -210,7 +210,10 @@ class MenuList extends FlxTypedGroup<FlxSprite>
 
 	function executeSelection()
 	{
-		var selectedOption = options[selectedIndex];
-		selectCallback(selectedOption);
+		if (selectCallback != null)
+		{
+			var selectedOption = options[selectedIndex];
+			selectCallback(selectedOption);
+		}
 	}
 }
