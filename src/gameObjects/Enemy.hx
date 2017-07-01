@@ -1,40 +1,75 @@
 package gameObjects;
+import flixel.FlxObject;
+import flixel.FlxSprite;
 
 /**
  * ...
  * @author ...
  */
-class Enemy extends EnemyTemplate
+class Enemy extends FlxSprite
 {
-	public static inline var RUN_SPEED:Int = 60;
-	public static inline var GRAVITY:Int = 0;
-	public static inline var JUMP_SPEED:Int = 60;
-	public static inline var HEALTH:Int = 1;
-	public static inline var SPAWNTIME:Float = 30;
-	
-	private var _gibs:FlxEmitter;
-	private var _spawntimer:Float;
+	public static inline var ACCELERATION:Int = 150;
+	public static inline var walk:String = "walk";
 
-	public function new(X:Float, Y:Float, ThePlayer:Player, Gibs:FlxEmitter)
+	private var player:Player;
+
+	public function new(X:Float, Y:Float, ThePlayer:Player)
 		{
 		// Initialize sprite object
 		super(X, Y);
+		this.player = ThePlayer;
 		// Load this animated graphic file
-		loadGraphic("assets/enemy1.png", true);
+		loadGraphic(AssetPaths.enemy1__png, true,16,16);
 		// Setting the color tints the plain white alien graphic
+		width = 16;
+		height = 16;
+		setSize(16, 16);
+		allowCollisions = FlxObject.ANY;
+		loadAnimations();
 		
-		// Time to create a simple animation! "alien.png" has 3 frames of animation in it.
-		// We want to play them in the order 1, 2, 3, 1 (but of course this stuff is 0-index).
-		// To avoid a weird, annoying appearance the framerate is randomized a little bit
-		// to a value between 6 and 10 (6+4) frames per second.
-		this.animation.add("Default", [0, 1], 30);
-
-		// Now that the animation is set up, it's very easy to play it back!
-		this.animation.play("Default");
-		
-		// Everybody move to the right!
 		velocity.x = 10;
 		}
 		
+	function loadAnimations()
+	{
+		animation.add(walk, [0, 1], 1);
+		animation.play(walk);
+
+	}
+	override public function update(elapsed:Float)
+	{
+		
+		movement(elapsed);
+		updateAnimation(elapsed);
+		super.update(elapsed);
+	}
+	
+	function movement(elapsed:Float)
+	{
+		acceleration.x = 0;
+		if (this.isTouching(FlxObject.LEFT))
+		{
+			acceleration.x = ACCELERATION;
+		}
+		if (this.isTouching(FlxObject.RIGHT))
+		{
+			acceleration.x = ACCELERATION;
+		}
+	}
+	
+	function updateOrientation()
+	{
+		if (velocity.x != 0)
+		{
+			if (velocity.x > 0)
+			{
+				flipX = false;
+			}
+			else if (velocity.x < 0)
+			{
+				flipX = true;
+			}
+		}
+	}
 		
 }

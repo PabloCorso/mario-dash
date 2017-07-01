@@ -10,6 +10,7 @@ import flixel.addons.display.FlxBackdrop;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxPoint;
 import flixel.util.FlxColor;
+import gameObjects.Enemy;
 import gameObjects.Key;
 import gameObjects.EntityType;
 import gameObjects.Exit;
@@ -27,7 +28,8 @@ class GameState extends FlxState
 	var hud:Hud;
 	var inGameMenu:InGameMenu;
 
-	var coins:FlxTypedGroup<Key>;
+	var keys:FlxTypedGroup<Key>;
+	var enemies:FlxTypedGroup<Enemy>;
 	var keysTaken:Int;
 	var totalKeys:Int;
 
@@ -43,7 +45,8 @@ class GameState extends FlxState
 	{
 		//this.bgColor = FlxColor.fromString("#6B8CFF");
 
-		coins = new FlxTypedGroup<Key>();
+		keys = new FlxTypedGroup<Key>();
+		enemies= new FlxTypedGroup<Enemy>();
 		inGameMenu = new InGameMenu();
 		hud = new Hud();
 
@@ -59,7 +62,8 @@ class GameState extends FlxState
 		add(hills);
 
 		add(exit);
-		add(coins);
+		add(keys);
+		add(enemies);
 		add(map);
 		add(player);
 		add(inGameMenu);
@@ -83,10 +87,12 @@ class GameState extends FlxState
 			case EntityType.Player:
 				player = new Player(position.x, position.y);
 			case EntityType.Key:
-				coins.add(new Key(position.x, position.y));
+				keys.add(new Key(position.x, position.y));
 				totalKeys++;
 			case EntityType.Exit:
 				exit = new Exit(position.x, position.y);
+			case EntityType.Enemy:
+				enemies.add(new Enemy(position.x, position.y,player));
 		}
 	}
 
@@ -123,7 +129,7 @@ class GameState extends FlxState
 
 		FlxG.collide(map, player);
 		FlxG.overlap(player, exit, playerTouchExit);
-		FlxG.overlap(player, coins, playerTouchKey);
+		FlxG.overlap(player, keys, playerTouchKey);
 	}
 
 	function isPressingPause()

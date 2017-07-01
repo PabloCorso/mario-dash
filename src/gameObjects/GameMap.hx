@@ -13,6 +13,7 @@ class GameMap extends FlxTilemap
 	static inline var startTile:Int = 1;
 	static inline var keyTile:Int = 2;
 	static inline var exitTile:Int = 3;
+	static inline var enemyTile:Int = 6;
 
 	var deadlyTiles = [45, 46, 47, 48, 49, 51];
 	public function new()
@@ -39,6 +40,12 @@ class GameMap extends FlxTilemap
 		for (keyPosition in keyPositions)
 		{
 			EntityLoadCallback(EntityType.Key, keyPosition);
+		}
+		
+		var enemyPositions = getEntityTilePositions(enemyTile);
+		for (enemyPosition in enemyPositions)
+		{
+			EntityLoadCallback(EntityType.Enemy, enemyPosition);
 		}
 	}
 
