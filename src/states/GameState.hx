@@ -128,6 +128,8 @@ class GameState extends FlxState
 		}
 
 		FlxG.collide(map, player);
+		FlxG.collide(map, enemies);
+		FlxG.overlap(player, enemies, enemyVsPlayer);
 		FlxG.overlap(player, exit, playerTouchExit);
 		FlxG.overlap(player, keys, playerTouchKey);
 	}
@@ -158,6 +160,12 @@ class GameState extends FlxState
 		}
 	}
 
+	function enemyVsPlayer(aPlayer:Player,enemy:Enemy):Void
+	{
+		aPlayer.kill();
+		goToMapMenu();
+	}
+	
 	function playerTouchDeadlyTile(Tile:FlxObject, Particle:FlxObject)
 	{
 		goToMapMenu();
@@ -168,4 +176,6 @@ class GameState extends FlxState
 		var seconds = hud.getSeconds();
 		FlxG.switchState(new MapState(mapData, finished, seconds));
 	}
+	
+
 }

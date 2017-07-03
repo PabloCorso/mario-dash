@@ -14,6 +14,7 @@ class GameMap extends FlxTilemap
 	static inline var keyTile:Int = 2;
 	static inline var exitTile:Int = 3;
 	static inline var enemyTile:Int = 6;
+	static inline var dumpTile:Int = 60;
 
 	var deadlyTiles = [45, 46, 47, 48, 49, 51];
 	public function new()

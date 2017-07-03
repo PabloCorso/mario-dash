@@ -8,7 +8,7 @@ import flixel.FlxSprite;
  */
 class Enemy extends FlxSprite
 {
-	public static inline var ACCELERATION:Int = 150;
+	public static inline var ACCELERATION:Int = 500;
 	public static inline var walk:String = "walk";
 
 	private var player:Player;
@@ -27,7 +27,7 @@ class Enemy extends FlxSprite
 		allowCollisions = FlxObject.ANY;
 		loadAnimations();
 		
-		velocity.x = 10;
+		velocity.x = -20;
 		}
 		
 	function loadAnimations()
@@ -40,7 +40,6 @@ class Enemy extends FlxSprite
 	{
 		
 		movement(elapsed);
-		updateAnimation(elapsed);
 		super.update(elapsed);
 	}
 	
@@ -49,12 +48,13 @@ class Enemy extends FlxSprite
 		acceleration.x = 0;
 		if (this.isTouching(FlxObject.LEFT))
 		{
-			acceleration.x = ACCELERATION;
+			acceleration.x += ACCELERATION;
 		}
 		if (this.isTouching(FlxObject.RIGHT))
 		{
-			acceleration.x = ACCELERATION;
+			acceleration.x = -ACCELERATION;
 		}
+		updateOrientation();
 	}
 	
 	function updateOrientation()
@@ -63,11 +63,11 @@ class Enemy extends FlxSprite
 		{
 			if (velocity.x > 0)
 			{
-				flipX = false;
+				flipX = true;
 			}
 			else if (velocity.x < 0)
 			{
-				flipX = true;
+				flipX = false;
 			}
 		}
 	}
