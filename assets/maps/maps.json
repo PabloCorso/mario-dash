@@ -32,26 +32,26 @@
 	{
 		"id": 6,
 		"title": "Zig Zag",
-		"path": "map01",
-		"time": 14
+		"path": "map06",
+		"time": 35
 	},
 	{
 		"id": 7,
-		"title": "Coin Harvest",
-		"path": "map01",
-		"time": 14
+		"title": "The Cave",
+		"path": "map07",
+		"time": 30
 	},
 	{
 		"id": 8,
-		"title": "Dead Zone",
-		"path": "map01",
-		"time": 14
+		"title": "Rock Lab",
+		"path": "map08",
+		"time": 40
 	},
 	{
 		"id": 9,
 		"title": "Flat Track",
-		"path": "map01",
-		"time": 14
+		"path": "map09",
+		"time": 24
 	},
 	{
 		"id": 10,
