@@ -31,42 +31,28 @@
 		"id": 5,
 		"title": "Bumpy",
 		"path": "map05",
-		"time": 34,
+		"time": 36,
 		"enemyCollisions": "map05Enemies"
 	},
 	{
 		"id": 6,
 		"title": "Zig Zag",
 		"path": "map06",
-		"time": 14,
+		"time": 35,
 		"enemyCollisions": ""
 	},
 	{
 		"id": 7,
 		"title": "Coin Harvest",
 		"path": "map07",
-		"time": 14,
+		"time": 25,
 		"enemyCollisions": ""
 	},
 	{
 		"id": 8,
 		"title": "Dead Zone",
 		"path": "map08",
-		"time": 14,
-		"enemyCollisions": ""
-	},
-	{
-		"id": 7,
-		"title": "The Cave",
-		"path": "map07",
-		"time": 30,
-		"enemyCollisions": ""
-	},
-	{
-		"id": 8,
-		"title": "Rock Lab",
-		"path": "map08",
-		"time": 40,
+		"time": 35,
 		"enemyCollisions": ""
 	},
 	{
@@ -79,8 +65,8 @@
 	{
 		"id": 10,
 		"title": "Flixel",
-		"path": "map01",
-		"time": 14,
-		"enemyCollisions": ""
+		"path": "map10",
+		"time": 40,
+		"enemyCollisions": "map10Enemies"
 	}
 ]
