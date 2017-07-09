@@ -37,29 +37,43 @@
 	{
 		"id": 6,
 		"title": "Zig Zag",
-		"path": "map01",
+		"path": "map06",
 		"time": 14,
 		"enemyCollisions": ""
 	},
 	{
 		"id": 7,
 		"title": "Coin Harvest",
-		"path": "map01",
+		"path": "map07",
 		"time": 14,
 		"enemyCollisions": ""
 	},
 	{
 		"id": 8,
 		"title": "Dead Zone",
-		"path": "map01",
+		"path": "map08",
 		"time": 14,
+		"enemyCollisions": ""
+	},
+	{
+		"id": 7,
+		"title": "The Cave",
+		"path": "map07",
+		"time": 30,
+		"enemyCollisions": ""
+	},
+	{
+		"id": 8,
+		"title": "Rock Lab",
+		"path": "map08",
+		"time": 40,
 		"enemyCollisions": ""
 	},
 	{
 		"id": 9,
 		"title": "Flat Track",
-		"path": "map01",
-		"time": 14,
+		"path": "map09",
+		"time": 24,
 		"enemyCollisions": ""
 	},
 	{
