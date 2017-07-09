@@ -51,6 +51,7 @@ class GameState extends FlxState
 		hud = new Hud();
 
 		createMap();
+		
 		map.setEntities(placeEntities);
 		hud.setKeysLeft(totalKeys);
 		setCameraBehaviour();
@@ -92,7 +93,7 @@ class GameState extends FlxState
 			case EntityType.Exit:
 				exit = new Exit(position.x, position.y);
 			case EntityType.Enemy:
-				enemies.add(new Enemy(position.x, position.y,player));
+				enemies.add(new Enemy(position.x, position.y, player));
 		}
 	}
 
@@ -129,6 +130,9 @@ class GameState extends FlxState
 
 		FlxG.collide(map, player);
 		FlxG.collide(map, enemies);
+		if(map.getMapEnemies!=null){
+			FlxG.collide(map.getMapEnemies(),enemies);
+		}
 		FlxG.overlap(player, enemies, enemyVsPlayer);
 		FlxG.overlap(player, exit, playerTouchExit);
 		FlxG.overlap(player, keys, playerTouchKey);

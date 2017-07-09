@@ -6,6 +6,7 @@ typedef MapData =
 	var title:String;
 	var path:String;
 	var time:Float;
+	var enemyCollisions:String;
 }
 
 class MapDataConfig
@@ -15,5 +16,12 @@ class MapDataConfig
 	static public function getPath(mapData:MapData)
 	{
 		return "assets/maps/" + mapData.path + ".csv";
+	}
+	
+		static public function getPathEnemies(mapData:MapData)
+	{
+		if (mapData.enemyCollisions == "")
+			return "";
+		return "assets/maps/" + mapData.enemyCollisions + ".csv";
 	}
 }

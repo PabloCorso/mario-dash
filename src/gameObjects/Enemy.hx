@@ -2,10 +2,7 @@ package gameObjects;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 
-/**
- * ...
- * @author ...
- */
+
 class Enemy extends FlxSprite
 {
 	public static inline var ACCELERATION:Int = 500;

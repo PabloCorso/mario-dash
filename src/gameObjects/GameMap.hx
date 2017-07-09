@@ -15,6 +15,7 @@ class GameMap extends FlxTilemap
 	static inline var exitTile:Int = 3;
 	static inline var enemyTile:Int = 6;
 	static inline var dumpTile:Int = 60;
+	var mapEnemies:FlxTilemap;
 
 	var deadlyTiles = [45, 46, 47, 48, 49, 51];
 	public function new()
@@ -27,6 +28,14 @@ class GameMap extends FlxTilemap
 		var mapPath = MapDataConfig.getPath(mapData);
 		var map:String = Assets.getText(mapPath);
 		loadMapFromCSV(map, AssetPaths.map_tiles__png, mapTilesSize, mapTilesSize, null, 0, 20, 30);
+		var enemyMapPath = MapDataConfig.getPathEnemies(mapData);
+	
+		if (enemyMapPath != ""){
+			var enemyMap = Assets.getText(enemyMapPath);
+			mapEnemies = new FlxTilemap();
+			this.mapEnemies.loadMapFromCSV(enemyMap, AssetPaths.map_tiles__png, mapTilesSize, mapTilesSize, null, 0, 20, 30);
+			
+		}
 	}
 
 	public function setEntities(EntityLoadCallback:EntityType->FlxPoint->Void, EntityLayer:String = "entities"):Void
@@ -81,5 +90,15 @@ class GameMap extends FlxTilemap
 		{
 			setTileProperties(tile, FlxObject.ANY, playerDeath);
 		}
+	}
+	
+	public function getMapEnemies():FlxTilemap 
+	{
+		return mapEnemies;
+	}
+	
+	public function setMapEnemies(value:FlxTilemap):FlxTilemap 
+	{
+		return mapEnemies = value;
 	}
 }
