@@ -1,7 +1,24 @@
 package utils;
 
-class IntUtils
+class Utils
 {
+	static public function round(number:Float, ?precision=2):Float
+	{
+		number *= Math.pow(10, precision);
+		return Math.round(number) / Math.pow(10, precision);
+	}
+
+	static public function sortFloatArray(array:Array<Float>, ?ascendent:Bool=true)
+	{
+		var multiplier = ascendent ? -1 : 1;
+		haxe.ds.ArraySort.sort(array, function(a, b):Int
+		{
+			if (a < b) return -1 * multiplier;
+			else if (a > b) return 1 * multiplier;
+			return 0;
+		});
+	}
+
 	public static function getNumberLength(n:Int)
 	{
 		if (n < 100000)

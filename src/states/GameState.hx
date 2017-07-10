@@ -178,7 +178,7 @@ class GameState extends FlxState
 	function goToMapMenu()
 	{
 		var seconds = hud.getSeconds();
-		FlxG.switchState(new MapState(mapData, finished, seconds));
+		FlxG.switchState(new MapState(mapData, finished, seconds, true));
 	}
 	
 
